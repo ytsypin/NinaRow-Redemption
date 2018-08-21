@@ -20,6 +20,7 @@ public class BusinessLogic {
             gameEngine = currentRunningTask.getValue();
             if(gameEngine != null) {
                 controller.populateTable();
+                controller.populateLabels(gameEngine.getParticipants().size());
             }
         });
 

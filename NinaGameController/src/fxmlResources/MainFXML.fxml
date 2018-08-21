@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.AnchorPane?>
 
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Pane?>
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
-   <BorderPane>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<ScrollPane fx:id="entireWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+   <BorderPane fx:id="borderPane">
        <right>
            <fx:include fx:id="rightSide" source="RightSide.fxml"/>
        </right>
        <center>
-           <ScrollPane minWidth="550" minHeight="550">
-             <Pane fx:id="boardAnchorPane" minHeight="500" minWidth="500"></Pane>
-           </ScrollPane>
+           <AnchorPane fx:id="boardAnchorPane" minHeight="400" minWidth="400" BorderPane.alignment="CENTER"></AnchorPane>
        </center>
        <left>
-          <fx:include fx:id="replayArea" source="ReplayArea.fxml"/>
+           <fx:include fx:id="replayArea" source="ReplayArea.fxml"/>
        </left>
    </BorderPane>
 </ScrollPane>

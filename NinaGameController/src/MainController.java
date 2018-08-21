@@ -2,26 +2,37 @@ import gameBoard.Turn;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import regularGame.RegularGame;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 
 public class MainController {
-    @FXML Pane boardAnchorPane;
+    @FXML AnchorPane boardAnchorPane;
     @FXML private RightSideController rightSideController;
     @FXML private ReplayController replayAreaController;
     @FXML private GameBoardController gameBoardController;
+    @FXML private BorderPane borderPane;
+    @FXML private ScrollPane entireWindow;
+
+    @FXML private Label player1;
+    @FXML private Label player2;
+    @FXML private Label player3;
+    @FXML private Label player4;
+    @FXML private Label player5;
+    @FXML private Label player6;
+
+    private Label[] playerLabels;
+
     private BusinessLogic businessLogic;
     private Stage primaryStage;
     private TileController[][] tileControllers;
@@ -58,7 +69,9 @@ public class MainController {
         }
 
         public void createBoard() {
+            boardAnchorPane.getChildren().clear();
             GridPane gridShape = makeGrid();
+            gridShape.setAlignment(Pos.CENTER);
             boardAnchorPane.getChildren().add(gridShape);
         }
 
@@ -72,6 +85,18 @@ public class MainController {
 
             createGameBoard(grid, rows, cols);
 
+            TileController tileController = tileControllers[1][2];
+
+            tileController.addElement();
+
+            double x = (boardAnchorPane.getWidth() - ((cols+2)*TILE_SIZE)*((rows+2)*TILE_SIZE))/2;
+            double y = (boardAnchorPane.getHeight() - ((cols+2)*TILE_SIZE)*((rows+2)*TILE_SIZE))/2;
+
+            AnchorPane.setRightAnchor(grid, .0);
+            AnchorPane.setTopAnchor(grid, .0);
+            AnchorPane.setLeftAnchor(grid, .0);
+            AnchorPane.setBottomAnchor(grid, .0);
+
             if(businessLogic.isPopoutGame()){
                 createButtonRow(grid, cols, rows+2, Turn.removeDisk);
             }
@@ -83,6 +108,7 @@ public class MainController {
         try {
 
             tileControllers = new TileController[rows][cols];
+
             grid.getStylesheets().add("Resources/Tile.css");
 
             for(int i = 0; i < rows; i++){
@@ -91,9 +117,10 @@ public class MainController {
                     URL url = getClass().getResource("/fxmlResources/Tile.fxml");
                     fxmlLoader.setLocation(url);
 
-                    TileController tileController = fxmlLoader.getController();
                     Node singleTile = fxmlLoader.load();
+                    TileController tileController = fxmlLoader.getController();
                     singleTile.getStyleClass().add("tile");
+
                     tileControllers[i][j] = tileController;
 
                     grid.add(singleTile,j, i+1);
@@ -121,5 +148,9 @@ public class MainController {
             }
             grid.add(button, i, row);
         }
+    }
+
+    public void populateLabels(int size) {
+        rightSideController.populateLabels(size);
     }
 }

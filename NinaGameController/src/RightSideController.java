@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import regularGame.RegularGame;
@@ -34,6 +35,17 @@ public class RightSideController {
     @FXML private Button startGameButton;
     @FXML private Button exitButton;
     @FXML private ComboBox<?> skinSelector;
+    @FXML private VBox playerLabelArea;
+
+    @FXML private Label player1;
+    @FXML private Label player2;
+    @FXML private Label player3;
+    @FXML private Label player4;
+    @FXML private Label player5;
+    @FXML private Label player6;
+
+    private Label[] playerLabels = new Label[6];
+
 
     private MainController mainController;
     private Stage primaryStage;
@@ -65,13 +77,12 @@ public class RightSideController {
         isBotCol.setCellValueFactory(new PropertyValueFactory<>("isBot"));
         numOfTurnsCol.setCellValueFactory(new PropertyValueFactory<>("turnsTaken"));
 
-        ObservableList<Participant> data = FXCollections.observableArrayList(
-                new Participant("Adam", true, 123),
-                new Participant("Ben", false, 1234)
-        );
-
-        setPlayerInfoTable(data);
-
+        playerLabels[0] = player1;
+        playerLabels[1] = player2;
+        playerLabels[2] = player3;
+        playerLabels[3] = player4;
+        playerLabels[4] = player5;
+        playerLabels[5] = player6;
     }
 
     public void setPlayerInfoTable(ObservableList<Participant> playerData){
@@ -131,4 +142,15 @@ public class RightSideController {
         this.businessLogic = businessLogic;
     }
 
+    public void populateLabels(int size) {
+        for(int i = size; i < 6; i++){
+            playerLabels[i].setText("");
+        }
+
+        for(int i = 0; i < size; i++){
+            playerLabels[i].getStyleClass().add("player"+ (i+1));
+        }
+
+        playerLabels[0].getStyleClass().add("curr");
+    }
 }
