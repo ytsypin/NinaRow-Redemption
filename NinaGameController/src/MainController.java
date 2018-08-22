@@ -37,7 +37,6 @@ public class MainController {
     private Stage primaryStage;
     private TileController[][] tileControllers;
 
-
     private static final int TILE_SIZE = 40;
 
 

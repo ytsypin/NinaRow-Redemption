@@ -3,6 +3,27 @@
 }
 
 .player1{
-    -fx-background-color: BLUE;
+    -fx-background-color: Yellow;
     -fx-font-family: Algerian;
+}
+
+.player2{
+    -fx-background-color: YellowGreen;
+
+}
+
+.player3{
+    -fx-background-color: SteelBlue;
+}
+
+.player4{
+    -fx-background-color: PowderBlue;
+}
+
+.player5{
+    -fx-background-color: Sienna;
+}
+
+.player6{
+    -fx-background-color: Salmon;
 }

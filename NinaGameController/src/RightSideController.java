@@ -1,4 +1,5 @@
 import gameBoard.Participant;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -46,11 +47,26 @@ public class RightSideController {
 
     private Label[] playerLabels = new Label[6];
 
+    @FXML private Label p1TurnIndicator;
+    @FXML private Label p2TurnIndicator;
+    @FXML private Label p3TurnIndicator;
+    @FXML private Label p4TurnIndicator;
+    @FXML private Label p5TurnIndicator;
+    @FXML private Label p6TurnIndicator;
+
+    private Label[] turnIndicators = new Label[6];
+
 
     private MainController mainController;
     private Stage primaryStage;
     private BusinessLogic businessLogic;
     private XMLLoaderController xmlLoaderController;
+
+    private SimpleBooleanProperty isFileLoaded;
+
+    public RightSideController(SimpleBooleanProperty isFileLoaded) {
+        this.isFileLoaded = isFileLoaded;
+    }
 
     public void init(MainController mainController, BusinessLogic businessLogic) {
         this.mainController = mainController;
@@ -83,6 +99,15 @@ public class RightSideController {
         playerLabels[3] = player4;
         playerLabels[4] = player5;
         playerLabels[5] = player6;
+
+        turnIndicators[0] = p1TurnIndicator;
+        turnIndicators[1] = p2TurnIndicator;
+        turnIndicators[2] = p3TurnIndicator;
+        turnIndicators[3] = p4TurnIndicator;
+        turnIndicators[4] = p5TurnIndicator;
+        turnIndicators[5] = p6TurnIndicator;
+
+
     }
 
     public void setPlayerInfoTable(ObservableList<Participant> playerData){
@@ -151,6 +176,8 @@ public class RightSideController {
             playerLabels[i].getStyleClass().add("player"+ (i+1));
         }
 
-        playerLabels[0].getStyleClass().add("curr");
+        playerLabels[0].getStyleClass().add("style1");
+
+        turnIndicators[0].setText("#");
     }
 }
