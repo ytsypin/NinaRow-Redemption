@@ -64,13 +64,15 @@ public class RightSideController {
 
     private SimpleBooleanProperty isFileLoaded;
 
-    public RightSideController(SimpleBooleanProperty isFileLoaded) {
-        this.isFileLoaded = isFileLoaded;
+    public RightSideController() {
+        isFileLoaded = new SimpleBooleanProperty(false);
     }
 
     public void init(MainController mainController, BusinessLogic businessLogic) {
         this.mainController = mainController;
         this.businessLogic = businessLogic;
+
+        mainController.disableReplayAreaBind(isFileLoaded);
     }
 
     @FXML
@@ -80,10 +82,6 @@ public class RightSideController {
 
     @FXML
     void onStartPressed(ActionEvent event) {
-
-    }
-
-    public RightSideController() {
 
     }
 
@@ -106,6 +104,9 @@ public class RightSideController {
         turnIndicators[3] = p4TurnIndicator;
         turnIndicators[4] = p5TurnIndicator;
         turnIndicators[5] = p6TurnIndicator;
+
+        startGameButton.disableProperty().bind(isFileLoaded.not());
+        skinSelector.disableProperty().bind(isFileLoaded.not());
 
 
     }
@@ -179,5 +180,7 @@ public class RightSideController {
         playerLabels[0].getStyleClass().add("style1");
 
         turnIndicators[0].setText("#");
+
+        isFileLoaded.setValue(true);
     }
 }

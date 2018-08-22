@@ -1,4 +1,5 @@
 import gameBoard.Turn;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -151,5 +152,9 @@ public class MainController {
 
     public void populateLabels(int size) {
         rightSideController.populateLabels(size);
+    }
+
+    public void disableReplayAreaBind(SimpleBooleanProperty isFileLoaded) {
+        replayAreaController.disableButtonsBind(isFileLoaded);
     }
 }

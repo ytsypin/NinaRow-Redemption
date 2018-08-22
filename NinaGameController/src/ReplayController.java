@@ -1,3 +1,4 @@
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -50,5 +51,13 @@ public class ReplayController {
 
     public void setBusinessLogic(BusinessLogic businessLogic) {
         this.businessLogic = businessLogic;
+    }
+
+    public void disableButtonsBind(SimpleBooleanProperty isFileLoaded) {
+        replayToggleButton.disableProperty().bind(isFileLoaded.not());
+        toBeginningButton.disableProperty().bind(isFileLoaded.not());
+        undoTurnButton.disableProperty().bind(isFileLoaded.not());
+        nextTurnButton.disableProperty().bind(isFileLoaded.not());
+        toEndButton.disableProperty().bind(isFileLoaded.not());
     }
 }
