@@ -57,4 +57,8 @@ public class Participant{
     public int getParticipantSymbol() {
         return participantSymbol;
     }
+
+    public SimpleIntegerProperty turnsTakenProperty() {
+        return turnsTaken;
+    }
 }

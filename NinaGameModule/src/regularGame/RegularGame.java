@@ -100,6 +100,7 @@ public class RegularGame{
     }
 
     protected void changeCurrentParticipant() {
+
     }
 
     protected void checkForWinner(int row, int col, int currParticipantSymbol){
@@ -364,7 +365,8 @@ public class RegularGame{
         N = n;
         this.allParticipants = allParticipants;
         this.gameBoard = new NinaBoard(rows, cols);
-
+        currentParticipant = allParticipants.get(0);
+        turnHistory = new LinkedList<>();
     }
 
 

@@ -54,4 +54,8 @@ public class BusinessLogic {
     public boolean isPopoutGame() {
         return gameEngine.getGameType() == gameEngine.popoutGame;
     }
+
+    public void createParticipantList(ObservableList<Participant> playerData) {
+
+    }
 }
