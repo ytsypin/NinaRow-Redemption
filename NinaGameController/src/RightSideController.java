@@ -63,9 +63,11 @@ public class RightSideController {
     private XMLLoaderController xmlLoaderController;
 
     private SimpleBooleanProperty isFileLoaded;
+    private SimpleBooleanProperty isGameStarted;
 
     public RightSideController() {
         isFileLoaded = new SimpleBooleanProperty(false);
+        isGameStarted = new SimpleBooleanProperty(false);
     }
 
     public void init(MainController mainController, BusinessLogic businessLogic) {
@@ -73,16 +75,17 @@ public class RightSideController {
         this.businessLogic = businessLogic;
 
         mainController.disableReplayAreaBind(isFileLoaded);
+
     }
 
     @FXML
     void onExitPressed(ActionEvent event) {
-
+        mainController.endProgram();
     }
 
     @FXML
     void onStartPressed(ActionEvent event) {
-
+        isGameStarted.setValue(true);
     }
 
     public void initialize(){
@@ -107,7 +110,7 @@ public class RightSideController {
 
         startGameButton.disableProperty().bind(isFileLoaded.not());
         skinSelector.disableProperty().bind(isFileLoaded.not());
-
+        loadXMLButton.disableProperty().bind(isGameStarted);
 
     }
 

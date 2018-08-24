@@ -146,4 +146,8 @@ public class MainController {
     public void disableReplayAreaBind(SimpleBooleanProperty isFileLoaded) {
         replayAreaController.disableButtonsBind(isFileLoaded);
     }
+
+    public void endProgram() {
+        primaryStage.close();
+    }
 }

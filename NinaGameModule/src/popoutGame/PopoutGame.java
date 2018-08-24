@@ -13,6 +13,7 @@ public class PopoutGame extends RegularGame {
         super(n, readyParticipants, rows, cols);
     }
 
+    @Override
     public void takeParticipantTurn(int col, int turnType) {
         if(turnType == Turn.addDisk){
             super.takeParticipantTurn(col, turnType);
