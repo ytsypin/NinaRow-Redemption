@@ -169,6 +169,11 @@ public class RightSideController {
     }
 
     public void populateLabels(int size) {
+        for(int i = 0; i < 6; i++){
+            playerLabels[i].setText("");
+            playerLabels[i].getStyleClass().clear();
+        }
+
         for(int i = size; i < 6; i++){
             playerLabels[i].setText("");
         }

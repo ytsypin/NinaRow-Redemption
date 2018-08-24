@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ninaGameController/NinaGameController.iml" filepath="$PROJECT_DIR$/ninaGameController/NinaGameController.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NinaGameController/NinaGameController.iml" filepath="$PROJECT_DIR$/NinaGameController/NinaGameController.iml" />
       <module fileurl="file://$PROJECT_DIR$/NinaGameLauncher/NinaGameLauncher.iml" filepath="$PROJECT_DIR$/NinaGameLauncher/NinaGameLauncher.iml" />
       <module fileurl="file://$PROJECT_DIR$/NinaGameModule/NinaGameModule.iml" filepath="$PROJECT_DIR$/NinaGameModule/NinaGameModule.iml" />
     </modules>

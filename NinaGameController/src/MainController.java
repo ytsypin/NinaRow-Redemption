@@ -25,15 +25,6 @@ public class MainController {
     @FXML private BorderPane borderPane;
     @FXML private ScrollPane entireWindow;
 
-    @FXML private Label player1;
-    @FXML private Label player2;
-    @FXML private Label player3;
-    @FXML private Label player4;
-    @FXML private Label player5;
-    @FXML private Label player6;
-
-    private Label[] playerLabels;
-
     private BusinessLogic businessLogic;
     private Stage primaryStage;
     private TileController[][] tileControllers;
@@ -74,6 +65,7 @@ public class MainController {
             GridPane gridShape = makeGrid();
             gridShape.setAlignment(Pos.CENTER);
             boardAnchorPane.getChildren().add(gridShape);
+            primaryStage.sizeToScene();
         }
 
         private GridPane makeGrid() {
@@ -85,10 +77,6 @@ public class MainController {
             createButtonRow(grid, cols, 0, Turn.addDisk);
 
             createGameBoard(grid, rows, cols);
-
-            TileController tileController = tileControllers[1][2];
-
-            tileController.addElement();
 
             double x = (boardAnchorPane.getWidth() - ((cols+2)*TILE_SIZE)*((rows+2)*TILE_SIZE))/2;
             double y = (boardAnchorPane.getHeight() - ((cols+2)*TILE_SIZE)*((rows+2)*TILE_SIZE))/2;
@@ -110,7 +98,7 @@ public class MainController {
 
             tileControllers = new TileController[rows][cols];
 
-            grid.getStylesheets().add("Resources/Tile.css");
+            grid.getStylesheets().add("fxmlResources/cssResources/PlayerLabels.css");
 
             for(int i = 0; i < rows; i++){
                 for(int j = 0; j < cols; j++){
