@@ -75,7 +75,7 @@ public class RegularGame{
     protected int getPossibleColumn() {
         List<Integer> possibleMoves = getPossibleMoves();
 
-        if (possibleMoves.size() == 0) {
+        if (possibleMoves.isEmpty()) {
             return noMove;
         } else {
             Random random = new Random();
@@ -88,14 +88,16 @@ public class RegularGame{
     }
 
     protected Turn implementTurn(int col) {
-        int row = getFirstOpenRow(col);
-        Turn currTurn = new Turn(row, col, currentParticipant.getParticipantSymbol(), Turn.addDisk);
-        int currParticipantSymbol = currentParticipant.getParticipantSymbol();
-        gameBoard.applyTurn(currTurn, currParticipantSymbol);
-        turnHistory.add(currTurn);
+        Turn currTurn = null;
+        if(!gameBoard.isColFull(col)){
+            int row = getFirstOpenRow(col);
+            currTurn = new Turn(row, col, currentParticipant.getParticipantSymbol(), Turn.addDisk);
+            int currParticipantSymbol = currentParticipant.getParticipantSymbol();
+            gameBoard.applyTurn(currTurn, currParticipantSymbol);
+            turnHistory.add(currTurn);
 
-        currentParticipant.addTurnPlayed();
-
+            currentParticipant.addTurnPlayed();
+        }
         return currTurn;
     }
 

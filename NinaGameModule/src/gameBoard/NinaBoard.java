@@ -85,4 +85,14 @@ public class NinaBoard implements Serializable {
         boardTiles[row+1][col] = boardTiles[row][col];
         boardTiles[row][col] = emptyTile;
     }
+
+    public boolean isColFull(int col) {
+        int firstOpenRow = getFirstOpenRow(col);
+
+        if(firstOpenRow == fullCol){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

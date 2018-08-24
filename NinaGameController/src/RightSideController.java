@@ -63,7 +63,7 @@ public class RightSideController {
     private XMLLoaderController xmlLoaderController;
 
     private SimpleBooleanProperty isFileLoaded;
-    private SimpleBooleanProperty isGameStarted;
+    public SimpleBooleanProperty isGameStarted;
 
     public RightSideController() {
         isFileLoaded = new SimpleBooleanProperty(false);

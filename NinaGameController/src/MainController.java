@@ -129,6 +129,7 @@ public class MainController {
             buttonImageView.setFitWidth(TILE_SIZE/2);
 
             Button button = new Button("",buttonImageView);
+            button.disableProperty().bind(rightSideController.isGameStarted.not());
             int buttonCol = i;
             if(turnType == Turn.addDisk) {
                 button.setOnAction(e -> businessLogic.regularMove(buttonCol));
