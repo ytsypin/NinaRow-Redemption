@@ -1,4 +1,6 @@
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -17,4 +19,11 @@ public class TileController {
         anchor.getChildren().add(circle);
     }
 
+    public Bounds getBounds() {
+        return tilePane.localToScreen(tilePane.getBoundsInLocal());
+    }
+
+    public void draw(Node node) {
+        tilePane.getChildren().add(node);
+    }
 }

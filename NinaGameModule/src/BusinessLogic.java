@@ -44,7 +44,11 @@ public class BusinessLogic {
     }
 
     public void regularMove(int col){
-        gameEngine.takeParticipantTurn(col, Turn.addDisk);
+        Turn turn = gameEngine.getParticipantTurn(col, Turn.addDisk);
+
+        if(turn != null) {
+            controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());
+        }
     }
 
     public void popoutMove(int col){

@@ -54,7 +54,6 @@ public class RegularGame{
         return false;
     }
 
-
     public boolean moveIsValid(int col) {
         return !((getFirstOpenRow(col) < 0) || (gameBoard.getRows() < getFirstOpenRow(col)));
     }
@@ -374,5 +373,19 @@ public class RegularGame{
 
     public ObservableList<Participant> getParticipants() {
         return (ObservableList<Participant>) allParticipants;
+    }
+
+    public Turn getParticipantTurn(int col, int turnType) {
+        Turn turnMade = implementTurn(col);
+
+        checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
+
+        if (!winnerFound) {
+            changeCurrentParticipant();
+            gameOver = (getPossibleColumn() == noMove);
+
+        }
+
+        return turnMade;
     }
 }

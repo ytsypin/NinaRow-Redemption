@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import regularGame.RegularGame;
 
@@ -159,6 +160,7 @@ public class RightSideController {
             Stage newWindow = new Stage();
             newWindow.setTitle("Loading XML File");
             newWindow.setScene(scene);
+            newWindow.initModality(Modality.APPLICATION_MODAL);
             newWindow.show();
 
 

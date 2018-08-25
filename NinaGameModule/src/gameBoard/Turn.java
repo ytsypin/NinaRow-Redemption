@@ -11,7 +11,6 @@ public class Turn implements Serializable {
     private int col;
     private int turnType;
 
-
     public Turn(int row, int col, int participantSymbol, int turnType){
         this.row = row;
         this.col = col;
@@ -23,7 +22,7 @@ public class Turn implements Serializable {
         return col;
     }
 
-    public int getRow() { return  row; }
+    public int getRow() { return row; }
 
     public int getTurnType() {
         return turnType;

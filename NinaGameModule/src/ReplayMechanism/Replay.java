@@ -3,7 +3,6 @@ package ReplayMechanism;
 import gameBoard.NinaBoard;
 import gameBoard.Turn;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class Replay {

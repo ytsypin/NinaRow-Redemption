@@ -35,18 +35,19 @@ public class NinaBoard implements Serializable {
 
     public int getFirstOpenRow(int col){
         boolean found = false;
-        SimpleIntegerProperty resRow = new SimpleIntegerProperty(0);
+        int resRow = fullCol;
+        int numOfRowsInIndex = rows.getValue() - 1;
 
         if(boardTiles[0][col] != emptyTile){
-            resRow.set(fullCol);
+            resRow = fullCol;
             found = true;
-        } else if(boardTiles[rows.getValue()-1][col] == emptyTile){
-            resRow.set(rows.getValue() - 1);
+        } else if(boardTiles[numOfRowsInIndex][col] == emptyTile){
+            resRow = numOfRowsInIndex;
             found = true;
         } else {
-            for (int i = (rows.getValue() - 1); (i >= 0) && (!found); i--) {
+            for (int i = numOfRowsInIndex; (i >= 0) && (!found); i--) {
                 if (boardTiles[i][col] == emptyTile) {
-                    resRow.setValue(i);
+                    resRow = i;
                     found = true;
                 }
             }
@@ -54,10 +55,10 @@ public class NinaBoard implements Serializable {
         // if found == false, resRow will be set to fullCol as an impossible value to signify a full column.
         // otherwise, a row should have been found.
         if(!found){
-            resRow.setValue(fullCol);
+            resRow = fullCol;
         }
 
-        return resRow.getValue();
+        return resRow;
     }
 
     public int getRows() {

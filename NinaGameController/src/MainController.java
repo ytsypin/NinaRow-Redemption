@@ -1,17 +1,24 @@
 import gameBoard.Turn;
+import javafx.animation.PathTransition;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import regularGame.RegularGame;
 
 import java.io.IOException;
@@ -106,9 +113,11 @@ public class MainController {
                     URL url = getClass().getResource("/fxmlResources/Tile.fxml");
                     fxmlLoader.setLocation(url);
 
-                    Node singleTile = fxmlLoader.load();
+                    Pane singleTile = fxmlLoader.load();
                     TileController tileController = fxmlLoader.getController();
                     singleTile.getStyleClass().add("tile");
+
+                    singleTile.getStylesheets().add("fxmlResources/cssResources/PlayerLabels.css");
 
                     tileControllers[i][j] = tileController;
 
@@ -150,5 +159,24 @@ public class MainController {
 
     public void endProgram() {
         primaryStage.close();
+    }
+
+    public void drawTurn(int col, int row, int participantSymbol) {
+        Bounds startPos = tileControllers[0][col].getBounds();
+        Bounds endPos = tileControllers[row][col].getBounds();
+
+        Circle circle = new Circle(startPos.getHeight()-20, startPos.getWidth()-20, 17);
+        Group root  = new Group();
+        root.getChildren().add(circle);
+        Path path = new Path();
+        path.getElements().addAll(new MoveTo(endPos.getHeight()-20,endPos.getWidth()-20), new VLineTo(startPos.getHeight() -20 - endPos.getHeight()+20));
+        root.getChildren().add(path);
+
+        PathTransition pt = new PathTransition(Duration.millis(400), path, circle);
+        pt.setCycleCount(1);
+        pt.play();
+        circle.getStyleClass().add("player" + participantSymbol);
+
+        tileControllers[row][col].draw(circle);
     }
 }
