@@ -65,6 +65,7 @@ public class RightSideController {
 
     private SimpleBooleanProperty isFileLoaded;
     public SimpleBooleanProperty isGameStarted;
+    private int currentPlayerTurn;
 
     public RightSideController() {
         isFileLoaded = new SimpleBooleanProperty(false);
@@ -112,6 +113,7 @@ public class RightSideController {
         startGameButton.disableProperty().bind(isFileLoaded.not());
         skinSelector.disableProperty().bind(isFileLoaded.not());
         loadXMLButton.disableProperty().bind(isGameStarted);
+        startGameButton.disableProperty().bind(isGameStarted);
 
     }
 
@@ -190,7 +192,19 @@ public class RightSideController {
         playerLabels[0].getStyleClass().add("style1");
 
         turnIndicators[0].setText("#");
+        currentPlayerTurn = 0;
 
         isFileLoaded.setValue(true);
+    }
+
+    public void changeCurrentPlayer() {
+        turnIndicators[currentPlayerTurn].setText("");
+        if(currentPlayerTurn == businessLogic.getPlayerData().size()-1){
+            currentPlayerTurn = 0;
+        } else {
+            currentPlayerTurn++;
+        }
+
+        turnIndicators[currentPlayerTurn].setText("#");
     }
 }

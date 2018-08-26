@@ -80,10 +80,10 @@
                               </Label>
                            </children>
                            <padding>
-                              <Insets top="37.0" />
+                              <Insets top="27.0" />
                            </padding>
                         </VBox>
-                        <TableView fx:id="playerTable" minHeight="207">
+                        <TableView fx:id="playerTable" minHeight="165">
                           <columns>
                             <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
                             <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
@@ -143,7 +143,7 @@
                               </Label>
                            </children>
                            <padding>
-                              <Insets top="30.0" />
+                              <Insets top="27.0" />
                            </padding>
                         </VBox>
                      </children>

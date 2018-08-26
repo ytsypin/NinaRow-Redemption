@@ -1,20 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <ScrollPane fx:id="entireWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
    <BorderPane fx:id="borderPane">
        <right>
-           <fx:include fx:id="rightSide" source="RightSide.fxml"/>
+           <fx:include fx:id="rightSide" source="RightSide.fxml" />
        </right>
        <center>
-           <AnchorPane fx:id="boardAnchorPane" minHeight="400" minWidth="400" BorderPane.alignment="CENTER"></AnchorPane>
+           <AnchorPane fx:id="boardAnchorPane" minHeight="400" minWidth="400" BorderPane.alignment="CENTER" />
        </center>
        <left>
-           <fx:include fx:id="replayArea" source="ReplayArea.fxml"/>
+           <fx:include fx:id="replayArea" source="ReplayArea.fxml" />
        </left>
+      <top>
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+               <Label fx:id="gameTypeHeader" text="Game Type:">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="100.0" top="5.0" />
+                  </HBox.margin>
+                  <font>
+                     <Font size="24.0" />
+                  </font>
+               </Label>
+               <Label fx:id="gameTypeLabel">
+                  <HBox.margin>
+                     <Insets bottom="5.0" left="5.0" right="100.0" top="5.0" />
+                  </HBox.margin>
+                  <font>
+                     <Font size="24.0" />
+                  </font>
+               </Label>
+               <Label fx:id="goalHeader" text="Current Goal:">
+                  <HBox.margin>
+                     <Insets left="100.0" />
+                  </HBox.margin>
+                  <font>
+                     <Font size="24.0" />
+                  </font>
+               </Label>
+               <Label fx:id="goalLabel">
+                  <HBox.margin>
+                     <Insets left="5.0" right="100.0" />
+                  </HBox.margin>
+                  <font>
+                     <Font size="24.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+      </top>
    </BorderPane>
 </ScrollPane>

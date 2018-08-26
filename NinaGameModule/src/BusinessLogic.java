@@ -21,6 +21,7 @@ public class BusinessLogic {
             if(gameEngine != null) {
                 controller.populateTable();
                 controller.populateLabels(gameEngine.getParticipants().size());
+                controller.setGameTypeAndGoal(gameEngine.getGameType(), gameEngine.getN());
             }
         });
 
@@ -48,6 +49,12 @@ public class BusinessLogic {
 
         if(turn != null) {
             controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());
+        }
+
+        if(gameEngine.isWinnerFound()){
+            controller.declareWinnerFound();
+        } else {
+            controller.changeCurrPlayer();
         }
     }
 

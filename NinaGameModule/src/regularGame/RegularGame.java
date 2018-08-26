@@ -11,8 +11,9 @@ import java.util.Objects;
 import java.util.Random;
 
 public class RegularGame{
-    public final int popoutGame = 0;
-    public final int regularGame = 1;
+    public static final int popoutGame = 0;
+    public static final int regularGame = 1;
+    public static final int circularGame = 2;
 
     protected int N;
     protected NinaBoard gameBoard;
@@ -47,11 +48,7 @@ public class RegularGame{
     }
 
     public int getN() {
-        return 0;
-    }
-
-    public boolean isActive() {
-        return false;
+        return N;
     }
 
     public boolean moveIsValid(int col) {
@@ -101,7 +98,15 @@ public class RegularGame{
     }
 
     protected void changeCurrentParticipant() {
+        int participantNumber = currentParticipant.getParticipantSymbol() - 1;
 
+        if(participantNumber == allParticipants.size()-1){
+            participantNumber = 0;
+        } else {
+            participantNumber++;
+        }
+
+        currentParticipant = allParticipants.get(participantNumber);
     }
 
     protected void checkForWinner(int row, int col, int currParticipantSymbol){
@@ -291,24 +296,12 @@ public class RegularGame{
         return gameBoard.getBoardTiles();
     }
 
-    public String getCurrentParticipantName() {
-        return currentParticipant.getName();
-    }
-
-    public int getCurrentParticipantTurnsPlayed() {
-        return currentParticipant.getTurnsTaken();
-    }
-
     public int getRows() {
         return gameBoard.getRows();
     }
 
     public int getCols() {
         return gameBoard.getCols();
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
     }
 
     public boolean isTurnHistoryEmpty() {

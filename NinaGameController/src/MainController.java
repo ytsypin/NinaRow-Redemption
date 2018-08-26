@@ -31,6 +31,10 @@ public class MainController {
     @FXML private GameBoardController gameBoardController;
     @FXML private BorderPane borderPane;
     @FXML private ScrollPane entireWindow;
+    @FXML private Label gameTypeHeader;
+    @FXML private Label gameTypeLabel;
+    @FXML private Label goalHeader;
+    @FXML private Label goalLabel;
 
     private BusinessLogic businessLogic;
     private Stage primaryStage;
@@ -165,18 +169,40 @@ public class MainController {
         Bounds startPos = tileControllers[0][col].getBounds();
         Bounds endPos = tileControllers[row][col].getBounds();
 
-        Circle circle = new Circle(startPos.getHeight()-20, startPos.getWidth()-20, 17);
-        Group root  = new Group();
+        Circle circle = new Circle(startPos.getWidth()-20, startPos.getHeight()-20, 17);
+        /*Group root  = new Group();
         root.getChildren().add(circle);
         Path path = new Path();
-        path.getElements().addAll(new MoveTo(endPos.getHeight()-20,endPos.getWidth()-20), new VLineTo(startPos.getHeight() -20 - endPos.getHeight()+20));
+        path.getElements().addAll(new MoveTo(startPos.getWidth()-20,startPos.getHeight()-20), new VLineTo(endPos.getHeight() -20 - endPos.getHeight()+20));
         root.getChildren().add(path);
 
         PathTransition pt = new PathTransition(Duration.millis(400), path, circle);
         pt.setCycleCount(1);
-        pt.play();
+        pt.play();*/
         circle.getStyleClass().add("player" + participantSymbol);
 
         tileControllers[row][col].draw(circle);
+    }
+
+    public void declareWinnerFound() {
+    }
+
+    public void setGameTypeAndGoal(int gameType, Integer n) {
+        String gameTypeString = new String();
+
+        if(gameType == RegularGame.regularGame){
+            gameTypeString = "Regular";
+        } else if(gameType == RegularGame.popoutGame){
+            gameTypeString = "Popout";
+        } else {
+            gameTypeString = "Circular";
+        }
+
+        gameTypeLabel.setText(gameTypeString);
+        goalLabel.setText(n.toString());
+    }
+
+    public void changeCurrPlayer() {
+        rightSideController.changeCurrentPlayer();
     }
 }
