@@ -114,7 +114,6 @@ public class RightSideController {
         skinSelector.disableProperty().bind(isFileLoaded.not());
         loadXMLButton.disableProperty().bind(isGameStarted);
         startGameButton.disableProperty().bind(isGameStarted);
-
     }
 
     public void setPlayerInfoTable(ObservableList<Participant> playerData){

@@ -5,25 +5,30 @@
 
 .player1{
     -fx-background-color: Yellow;
+    -fx-fill: Yellow;
 }
 
 .player2{
     -fx-background-color: YellowGreen;
-
+    -fx-fill: YellowGreen;
 }
 
 .player3{
     -fx-background-color: SteelBlue;
+    -fx-fill: SteelBlue;
 }
 
 .player4{
-    -fx-background-color: PowderBlue;
+    -fx-background-color: Purple;
+    -fx-fill: Purple;
 }
 
 .player5{
     -fx-background-color: Sienna;
+    -fx-fill: Sienna;
 }
 
 .player6{
     -fx-background-color: Salmon;
+    -fx-fill: Salmon;
 }
