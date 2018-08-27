@@ -224,6 +224,6 @@ public class MainController {
     }
 
     public void declareDraw() {
-        displayMesage("Ther Are No Moves Left - We All Lose, Just Like In Real Life!", "Draw");
+        displayMesage("There Are No Moves Left - We All Lose, Just Like In Real Life!", "Draw");
     }
 }
