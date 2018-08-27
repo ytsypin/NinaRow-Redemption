@@ -96,4 +96,15 @@ public class NinaBoard implements Serializable {
             return false;
         }
     }
+
+    public void clear() {
+        int rowNum = rows.getValue();
+        int colNum = cols.getValue();
+
+        for(int i = 0; i < rowNum; i++){
+            for(int j = 0; j < colNum; j++){
+                boardTiles[i][j] = emptyTile;
+            }
+        }
+    }
 }

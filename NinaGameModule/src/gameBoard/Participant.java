@@ -61,4 +61,8 @@ public class Participant{
     public SimpleIntegerProperty turnsTakenProperty() {
         return turnsTaken;
     }
+
+    public void clearTurns() {
+        turnsTaken.setValue(0);
+    }
 }

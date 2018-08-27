@@ -1,6 +1,6 @@
 import gameBoard.Participant;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -64,12 +64,12 @@ public class RightSideController {
     private XMLLoaderController xmlLoaderController;
 
     private SimpleBooleanProperty isFileLoaded;
-    public SimpleBooleanProperty isGameStarted;
+    public SimpleBooleanProperty isGameActive;
     private int currentPlayerTurn;
 
     public RightSideController() {
         isFileLoaded = new SimpleBooleanProperty(false);
-        isGameStarted = new SimpleBooleanProperty(false);
+        isGameActive = new SimpleBooleanProperty(false);
     }
 
     public void init(MainController mainController, BusinessLogic businessLogic) {
@@ -87,7 +87,11 @@ public class RightSideController {
 
     @FXML
     void onStartPressed(ActionEvent event) {
-        isGameStarted.setValue(true);
+        isGameActive.setValue(true);
+        businessLogic.clearBoard();
+        mainController.clearBoard();
+
+        isGameActive.setValue(true);
     }
 
     public void initialize(){
@@ -110,9 +114,10 @@ public class RightSideController {
         turnIndicators[4] = p5TurnIndicator;
         turnIndicators[5] = p6TurnIndicator;
 
-        startGameButton.disableProperty().bind(isFileLoaded.not());
+        startGameButton.disableProperty().bind(
+                Bindings.and(isFileLoaded.not(),isGameActive.not()));
         skinSelector.disableProperty().bind(isFileLoaded.not());
-        loadXMLButton.disableProperty().bind(isGameStarted);
+        loadXMLButton.disableProperty().bind(isGameActive);
     }
 
     public void setPlayerInfoTable(ObservableList<Participant> playerData){
@@ -130,23 +135,26 @@ public class RightSideController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
 
-        String fileName = selectedFile.getAbsolutePath();
+        if(selectedFile != null) {
+            String fileName = selectedFile.getAbsolutePath();
 
-        if(selectedFile == null){
-            return;
+            if (selectedFile == null) {
+                return;
+            }
+
+
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                URL url = getClass().getResource("/fxmlResources/XMLLoader.fxml");
+                fxmlLoader.setLocation(url);
+                Parent root = fxmlLoader.load();
+                xmlLoaderController = fxmlLoader.getController();
+
+                businessLogic.parseXMLFile(fileName);
+            } catch (IOException e) {
+            }
+
         }
-
-
-        try {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        URL url = getClass().getResource("/fxmlResources/XMLLoader.fxml");
-        fxmlLoader.setLocation(url);
-        Parent root = fxmlLoader.load();
-        xmlLoaderController = fxmlLoader.getController();
-
-        businessLogic.parseXMLFile(fileName);
-        } catch (IOException e) { }
-
     }
 
     public void bindUIToXMLController(Task<RegularGame> currentRunningTask) {

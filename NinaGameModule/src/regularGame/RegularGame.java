@@ -381,4 +381,22 @@ public class RegularGame{
 
         return turnMade;
     }
+
+    public String getCurrentPlayerName() {
+        return currentParticipant.getName();
+    }
+
+    public void clearGame() {
+        winnerFound = false;
+        gameBoard.clear();
+        if(winners != null) {
+            winners.clear();
+        }
+        if(turnHistory != null) {
+            turnHistory.clear();
+        }
+        for(Participant participant : allParticipants){
+            participant.clearTurns();
+        }
+    }
 }

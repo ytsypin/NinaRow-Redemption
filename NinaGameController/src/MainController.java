@@ -1,24 +1,19 @@
 import gameBoard.Turn;
-import javafx.animation.PathTransition;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import regularGame.RegularGame;
 
 import java.io.IOException;
@@ -28,7 +23,6 @@ public class MainController {
     @FXML AnchorPane boardAnchorPane;
     @FXML private RightSideController rightSideController;
     @FXML private ReplayController replayAreaController;
-    @FXML private GameBoardController gameBoardController;
     @FXML private BorderPane borderPane;
     @FXML private ScrollPane entireWindow;
     @FXML private Label gameTypeHeader;
@@ -142,7 +136,7 @@ public class MainController {
             buttonImageView.setFitWidth(TILE_SIZE/2);
 
             Button button = new Button("",buttonImageView);
-            button.disableProperty().bind(rightSideController.isGameStarted.not());
+            button.disableProperty().bind(rightSideController.isGameActive.not());
             int buttonCol = i;
             if(turnType == Turn.addDisk) {
                 button.setOnAction(e -> businessLogic.regularMove(buttonCol));
@@ -170,21 +164,22 @@ public class MainController {
         Bounds endPos = tileControllers[row][col].getBounds();
 
         Circle circle = new Circle(startPos.getWidth()-20, startPos.getHeight()-20, 17);
-        /*Group root  = new Group();
-        root.getChildren().add(circle);
-        Path path = new Path();
-        path.getElements().addAll(new MoveTo(startPos.getWidth()-20,startPos.getHeight()-20), new VLineTo(endPos.getHeight() -20 - endPos.getHeight()+20));
-        root.getChildren().add(path);
-
-        PathTransition pt = new PathTransition(Duration.millis(400), path, circle);
-        pt.setCycleCount(1);
-        pt.play();*/
         circle.getStyleClass().add("player" + participantSymbol);
 
         tileControllers[row][col].draw(circle);
     }
 
-    public void declareWinnerFound() {
+    public void declareWinnerFound(){
+        rightSideController.isGameActive.setValue(false);
+
+        ButtonType okButton = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Winner found!");
+        dialog.setHeaderText(businessLogic.getCurrentPlayerName() + " Won!");
+        dialog.getDialogPane().getButtonTypes().add(okButton);
+        dialog.showAndWait();
+
+        rightSideController.isGameActive.setValue(false);
     }
 
     public void setGameTypeAndGoal(int gameType, Integer n) {
@@ -204,5 +199,16 @@ public class MainController {
 
     public void changeCurrPlayer() {
         rightSideController.changeCurrentPlayer();
+    }
+
+    public void clearBoard() {
+        int rowNum = businessLogic.getRows();
+        int colNum = businessLogic.getCols();
+
+        for(int i =0; i < rowNum; i++){
+            for(int j = 0; j < colNum; j++){
+                tileControllers[i][j].clearChildren();
+            }
+        }
     }
 }

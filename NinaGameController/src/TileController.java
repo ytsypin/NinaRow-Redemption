@@ -26,4 +26,8 @@ public class TileController {
     public void draw(Node node) {
         tilePane.getChildren().add(node);
     }
+
+    public void clearChildren() {
+        tilePane.getChildren().clear();
+    }
 }

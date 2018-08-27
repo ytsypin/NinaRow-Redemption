@@ -69,4 +69,12 @@ public class BusinessLogic {
     public void createParticipantList(ObservableList<Participant> playerData) {
 
     }
+
+    public String getCurrentPlayerName() {
+        return gameEngine.getCurrentPlayerName();
+    }
+
+    public void clearBoard() {
+        gameEngine.clearGame();
+    }
 }
