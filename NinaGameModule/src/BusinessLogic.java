@@ -1,3 +1,4 @@
+import Exceptions.ColumnFullException;
 import gameBoard.Participant;
 import gameBoard.Turn;
 import javafx.collections.ObservableList;
@@ -45,20 +46,24 @@ public class BusinessLogic {
     }
 
     public void regularMove(int col){
-        Turn turn = gameEngine.getParticipantTurn(col, Turn.addDisk);
+        try {
+            Turn turn = gameEngine.getParticipantTurn(col, Turn.addDisk);
 
-        if(turn != null) {
-            controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());
-        }
+            if (turn != null) {
+                controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());
+            }
 
-        if(gameEngine.isWinnerFound()){
-            controller.declareWinnerFound();
-        } else {
-            controller.changeCurrPlayer();
+            if (gameEngine.isWinnerFound()) {
+                controller.declareWinnerFound();
+            } else {
+                controller.changeCurrPlayer();
+            }
+        } catch(ColumnFullException e){
+            controller.displayMesage("The selected column is full!");
         }
     }
 
-    public void popoutMove(int col){
+    public void popoutMove(int col) throws ColumnFullException{
         gameEngine.takeParticipantTurn(col, Turn.removeDisk);
     }
 

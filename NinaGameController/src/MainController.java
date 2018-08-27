@@ -1,3 +1,4 @@
+import Exceptions.ColumnFullException;
 import gameBoard.Turn;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
@@ -29,6 +30,7 @@ public class MainController {
     @FXML private Label gameTypeLabel;
     @FXML private Label goalHeader;
     @FXML private Label goalLabel;
+    @FXML private Label informationLabel;
 
     private BusinessLogic businessLogic;
     private Stage primaryStage;
@@ -130,7 +132,7 @@ public class MainController {
 
     private void createButtonRow(GridPane grid, int cols, int row, int turnType) {
         for(int i = 0; i < cols; i++){
-            Image buttonImage = new Image(getClass().getResourceAsStream("Resources/download.png"));
+            Image buttonImage = new Image(getClass().getResourceAsStream("Resources/arrow-down.png"));
             ImageView buttonImageView = new ImageView(buttonImage);
             buttonImageView.setFitHeight(TILE_SIZE/2);
             buttonImageView.setFitWidth(TILE_SIZE/2);
@@ -141,7 +143,13 @@ public class MainController {
             if(turnType == Turn.addDisk) {
                 button.setOnAction(e -> businessLogic.regularMove(buttonCol));
             } else {
-                button.setOnAction(e->businessLogic.popoutMove(buttonCol));
+                button.setOnAction(e-> {
+                    try {
+                        businessLogic.popoutMove(buttonCol);
+                    } catch (ColumnFullException e1) {
+                        e1.printStackTrace();
+                    }
+                });
             }
             grid.add(button, i, row);
         }
@@ -172,14 +180,7 @@ public class MainController {
     public void declareWinnerFound(){
         rightSideController.isGameActive.setValue(false);
 
-        ButtonType okButton = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("Winner found!");
-        dialog.setHeaderText(businessLogic.getCurrentPlayerName() + " Won!");
-        dialog.getDialogPane().getButtonTypes().add(okButton);
-        dialog.showAndWait();
-
-        rightSideController.isGameActive.setValue(false);
+        displayMesage(businessLogic.getCurrentPlayerName() + " Won!");
     }
 
     public void setGameTypeAndGoal(int gameType, Integer n) {
@@ -210,5 +211,15 @@ public class MainController {
                 tileControllers[i][j].clearChildren();
             }
         }
+    }
+
+    public void displayMesage(String message){
+        ButtonType okButton = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Winner found!");
+        dialog.setHeaderText(message);
+        dialog.getDialogPane().getButtonTypes().add(okButton);
+        dialog.showAndWait();
+
     }
 }

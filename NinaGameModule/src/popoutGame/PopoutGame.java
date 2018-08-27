@@ -1,5 +1,6 @@
 package popoutGame;
 
+import Exceptions.ColumnFullException;
 import gameBoard.Participant;
 import gameBoard.Turn;
 import javafx.collections.ObservableList;
@@ -13,7 +14,7 @@ public class PopoutGame extends RegularGame {
     }
 
     @Override
-    public void takeParticipantTurn(int col, int turnType) {
+    public void takeParticipantTurn(int col, int turnType) throws ColumnFullException {
         if(turnType == Turn.addDisk){
             super.takeParticipantTurn(col, turnType);
         } else {

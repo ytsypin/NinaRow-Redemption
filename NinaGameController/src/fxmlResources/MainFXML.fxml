@@ -57,5 +57,12 @@
             </children>
          </HBox>
       </top>
+      <bottom>
+         <Label fx:id="informationLabel" contentDisplay="CENTER" BorderPane.alignment="CENTER">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Label>
+      </bottom>
    </BorderPane>
 </ScrollPane>

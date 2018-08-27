@@ -1,5 +1,6 @@
 package regularGame;
 
+import Exceptions.ColumnFullException;
 import gameBoard.NinaBoard;
 import gameBoard.Participant;
 import gameBoard.Turn;
@@ -26,7 +27,7 @@ public class RegularGame{
     protected static int noMove = -1;
     protected List<Integer> winners;
 
-    public void takeParticipantTurn(int col, int turnType) {
+    public void takeParticipantTurn(int col, int turnType) throws ColumnFullException {
         // implement the turn
         // presume the column is valid, and there is a possible move.
         Turn turnMade = implementTurn(col);
@@ -83,7 +84,7 @@ public class RegularGame{
         return gameBoard.getFirstOpenRow(column);
     }
 
-    protected Turn implementTurn(int col) {
+    protected Turn implementTurn(int col) throws ColumnFullException {
         Turn currTurn = null;
         if(!gameBoard.isColFull(col)){
             int row = getFirstOpenRow(col);
@@ -93,6 +94,8 @@ public class RegularGame{
             turnHistory.add(currTurn);
 
             currentParticipant.addTurnPlayed();
+        } else {
+            throw new ColumnFullException();
         }
         return currTurn;
     }
@@ -318,7 +321,7 @@ public class RegularGame{
         return resultingTurnHistory;
     }
 
-    public void takeBotTurn() {
+    public void takeBotTurn() throws ColumnFullException {
         int column = getPossibleColumn();
 
         if (column == noMove) {
@@ -368,7 +371,7 @@ public class RegularGame{
         return (ObservableList<Participant>) allParticipants;
     }
 
-    public Turn getParticipantTurn(int col, int turnType) {
+    public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException {
         Turn turnMade = implementTurn(col);
 
         checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
