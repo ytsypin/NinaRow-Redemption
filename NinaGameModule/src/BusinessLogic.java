@@ -59,7 +59,7 @@ public class BusinessLogic {
                 controller.changeCurrPlayer();
             }
         } catch(ColumnFullException e){
-            controller.displayMesage("The selected column is full!");
+            controller.displayMesage("The selected column is full!", "Column Full");
         }
     }
 

@@ -19,7 +19,7 @@ import java.util.*;
 
 
 public class XMLExtractionTask extends Task<RegularGame> {
-    private final int SLEEP_TIME = 0;
+    private final int SLEEP_TIME = 300;
     private String fileName;
 
     @Override
@@ -43,21 +43,25 @@ public class XMLExtractionTask extends Task<RegularGame> {
             List<Player> allPlayers = gameDescriptor.getPlayers().getPlayer();
 
             updateMessage("Checking rows");
+            Thread.sleep(SLEEP_TIME);
             if(rows < 5 || 50 < rows){
                 throw new InvalidNumberOfRowsException(rows);
             }
 
             updateMessage("Checking columns");
+            Thread.sleep(SLEEP_TIME);
             if(cols < 6 || 30 < cols){
                 throw new InvalidNumberOfColsException(cols);
             }
 
             updateMessage("Checking target value");
+            Thread.sleep(SLEEP_TIME);
             if(N >= Math.min(rows, cols) || N < 2){
                 throw new InvalidTargetException(N);
             }
 
             updateMessage("Checking number of players");
+            Thread.sleep(SLEEP_TIME);
             if(allPlayers.size() < 2 || 6 < allPlayers.size()){
                 throw new InvalidNumberOfPlayersException(allPlayers.size());
             }
@@ -66,6 +70,7 @@ public class XMLExtractionTask extends Task<RegularGame> {
             List<Short> idList = new ArrayList<>();
 
             updateMessage("Checking ID number uniqueness");
+            Thread.sleep(SLEEP_TIME);
             for(Player player : allPlayers){
                 Short playerID = player.getId();
 
@@ -87,6 +92,7 @@ public class XMLExtractionTask extends Task<RegularGame> {
             }
 
             updateMessage("Checking game type");
+            Thread.sleep(SLEEP_TIME);
             if(gameDescriptor.getGame().getVariant().equals("Circular")){
                 retGame = new CircularGame(N, playerList, rows, cols);
             } else if (gameDescriptor.getGame().getVariant().equals("Popout")) {

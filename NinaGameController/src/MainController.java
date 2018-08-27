@@ -180,7 +180,7 @@ public class MainController {
     public void declareWinnerFound(){
         rightSideController.isGameActive.setValue(false);
 
-        displayMesage(businessLogic.getCurrentPlayerName() + " Won!");
+        displayMesage(businessLogic.getCurrentPlayerName() + " Won!", "Winner Found!");
     }
 
     public void setGameTypeAndGoal(int gameType, Integer n) {
@@ -213,10 +213,10 @@ public class MainController {
         }
     }
 
-    public void displayMesage(String message){
+    public void displayMesage(String message, String header){
         ButtonType okButton = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
         Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("Winner found!");
+        dialog.setTitle(header);
         dialog.setHeaderText(message);
         dialog.getDialogPane().getButtonTypes().add(okButton);
         dialog.showAndWait();
