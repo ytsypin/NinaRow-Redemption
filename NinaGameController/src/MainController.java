@@ -222,4 +222,8 @@ public class MainController {
         dialog.showAndWait();
 
     }
+
+    public void declareDraw() {
+        displayMesage("Ther Are No Moves Left - We All Lose, Just Like In Real Life!", "Draw");
+    }
 }

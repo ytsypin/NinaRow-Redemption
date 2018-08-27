@@ -53,7 +53,7 @@ public class CircularGame extends RegularGame {
             checkForWinningSpanningVertically(row, col, currParticipantSymbol);
         }
 
-        if(winnerFound){
+        if(winnerFound || (getPossibleColumn() == noMove)){
             gameOver = true;
         }
     }

@@ -57,6 +57,7 @@ public class BusinessLogic {
                 controller.declareWinnerFound();
             } else if (gameEngine.drawReached()){
               // Do draw thing
+                controller.declareDraw();
             } else {
                 controller.changeCurrPlayer();
             }
