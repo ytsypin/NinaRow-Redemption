@@ -8,8 +8,6 @@ import regularGame.RegularGame;
 
 public class CircularGame extends RegularGame {
 
-    private boolean winnerFound;
-
     public CircularGame(int n, ObservableList<Participant> readyParticipants, int rows, int cols) {
         super(n, readyParticipants, rows, cols);
     }
@@ -19,6 +17,27 @@ public class CircularGame extends RegularGame {
         Turn turnMade = implementTurn(col);
 
         checkForWinner(turnMade.getRow(), turnMade.getCol(), currentParticipant.getParticipantSymbol());
+
+        if (!winnerFound) {
+            changeCurrentParticipant();
+            gameOver = (getPossibleColumn() == noMove);
+        }
+    }
+
+    @Override
+    public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException{
+        Turn turnMade = implementTurn(col);
+
+        checkForWinner(turnMade.getRow(), turnMade.getCol(), currentParticipant.getParticipantSymbol());
+
+        if (!winnerFound) {
+            changeCurrentParticipant();
+            gameOver = (getPossibleColumn() == noMove);
+        } else {
+
+        }
+
+        return turnMade;
     }
 
     @Override
@@ -32,6 +51,10 @@ public class CircularGame extends RegularGame {
         }
         if(!winnerFound){
             checkForWinningSpanningVertically(row, col, currParticipantSymbol);
+        }
+
+        if(winnerFound){
+            gameOver = true;
         }
     }
 
@@ -59,7 +82,7 @@ public class CircularGame extends RegularGame {
         if(currRow == 0){ // check circularly
             currRow = numOfRows;
 
-            while(currRow > row+1 && keepLooking){
+            while(currRow > row && keepLooking){
                 currRow--;
                 if(gameBoard.getTileSymbol(currRow,col) == currParticipantSymbol){
                     currStreak++;
@@ -77,8 +100,8 @@ public class CircularGame extends RegularGame {
 
         // downward
         currRow = row;
-        currStreak = 1;
-        while(currRow < numOfRows-2 && keepLooking){
+        keepLooking = true;
+        while(currRow < numOfRows - 1 && keepLooking){
             currRow++;
             if(gameBoard.getTileSymbol(currRow,col) == currParticipantSymbol){
                 currStreak++;
@@ -114,10 +137,11 @@ public class CircularGame extends RegularGame {
 
     private void checkForWinningSpanningHorizontally(int row, int col, int currParticipantSymbol) {
         // to the left
-        int currCol = row;
+        int currCol = col;
         int numOfCols = gameBoard.getCols();
         int currStreak = 1;
         boolean keepLooking = true;
+
         while(currCol > 0 && keepLooking){
             currCol--;
             if(gameBoard.getTileSymbol(row,currCol) == currParticipantSymbol){
@@ -150,8 +174,8 @@ public class CircularGame extends RegularGame {
 
         // to the right
         currCol = col;
-        currStreak = 1;
-        while(currCol < numOfCols-2 && keepLooking){
+        keepLooking = true;
+        while(currCol < numOfCols-1 && keepLooking){
             currCol++;
             if(gameBoard.getTileSymbol(row,currCol) == currParticipantSymbol){
                 currStreak++;

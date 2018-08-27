@@ -115,7 +115,7 @@ public class RightSideController {
         turnIndicators[5] = p6TurnIndicator;
 
         startGameButton.disableProperty().bind(
-                Bindings.and(isFileLoaded.not(),isGameActive.not()));
+                Bindings.or(isFileLoaded.not(),isGameActive));
         skinSelector.disableProperty().bind(isFileLoaded.not());
         loadXMLButton.disableProperty().bind(isGameActive);
     }

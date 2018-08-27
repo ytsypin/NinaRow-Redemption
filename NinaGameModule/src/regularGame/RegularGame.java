@@ -123,6 +123,10 @@ public class RegularGame{
         if(!winnerFound){
             checkForWinningAcrossRight(row,col,currParticipantSymbol);
         }
+
+        if(winnerFound){
+            gameOver = true;
+        }
     }
 
     // direction: /
@@ -379,7 +383,6 @@ public class RegularGame{
         if (!winnerFound) {
             changeCurrentParticipant();
             gameOver = (getPossibleColumn() == noMove);
-
         }
 
         return turnMade;
@@ -400,6 +403,14 @@ public class RegularGame{
         }
         for(Participant participant : allParticipants){
             participant.clearTurns();
+        }
+    }
+
+    public boolean drawReached() {
+        if(gameOver && !winnerFound){
+            return true;
+        } else {
+            return false;
         }
     }
 }
