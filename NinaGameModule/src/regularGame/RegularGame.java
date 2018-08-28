@@ -361,7 +361,6 @@ public class RegularGame{
         return regularGame;
     }
 
-
     public RegularGame(int n, ObservableList<Participant> allParticipants, int rows, int cols) {
         N = n;
         this.allParticipants = allParticipants;
@@ -369,7 +368,6 @@ public class RegularGame{
         currentParticipant = allParticipants.get(0);
         turnHistory = new LinkedList<>();
     }
-
 
     public ObservableList<Participant> getParticipants() {
         return (ObservableList<Participant>) allParticipants;

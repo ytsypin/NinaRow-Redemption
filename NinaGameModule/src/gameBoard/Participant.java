@@ -5,7 +5,6 @@ import javafx.beans.property.*;
 import java.util.Objects;
 
 public class Participant{
-    private static int symbolNum;
 
     private SimpleStringProperty name;
     private SimpleBooleanProperty isBot;
@@ -13,11 +12,11 @@ public class Participant{
     private int participantSymbol;
     private SimpleIntegerProperty idNum;
 
-    public Participant(String name, boolean isBot, int idNum){
+    public Participant(String name, boolean isBot, int idNum, int symbolNum){
         this.name = new SimpleStringProperty(name);
         this.isBot = new SimpleBooleanProperty(isBot);
         this.turnsTaken = new SimpleIntegerProperty(0);
-        this.participantSymbol = ++symbolNum;
+        this.participantSymbol = symbolNum;
         this.idNum = new SimpleIntegerProperty(idNum);
     }
 

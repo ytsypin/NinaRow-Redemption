@@ -213,4 +213,8 @@ public class RightSideController {
 
         turnIndicators[currentPlayerTurn].setText("#");
     }
+
+    public void clearPlayerInfoTable() {
+        playerTable.getItems().clear();
+    }
 }

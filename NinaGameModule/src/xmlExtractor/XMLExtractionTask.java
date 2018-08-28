@@ -71,6 +71,7 @@ public class XMLExtractionTask extends Task<RegularGame> {
 
             updateMessage("Checking ID number uniqueness");
             Thread.sleep(SLEEP_TIME);
+            int playerNum = 1;
             for(Player player : allPlayers){
                 Short playerID = player.getId();
 
@@ -82,7 +83,8 @@ public class XMLExtractionTask extends Task<RegularGame> {
                 } else {
                     throw new ParticipantTypeException();
                 }
-                Participant participant = new Participant(player.getName(), isBot, player.getId());
+                Participant participant = new Participant(player.getName(), isBot, player.getId(), playerNum);
+                playerNum++;
                 playerList.add(participant);
                 if(idList.contains(player.getId())){
                     throw new IDDuplicateException(player.getId());

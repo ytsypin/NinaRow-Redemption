@@ -62,6 +62,7 @@ public class MainController {
         }
 
         public void populateTable() {
+            rightSideController.clearPlayerInfoTable();
             rightSideController.setPlayerInfoTable(businessLogic.getPlayerData());
             businessLogic.createParticipantList(businessLogic.getPlayerData());
             createBoard();
