@@ -30,4 +30,8 @@ public class TileController {
     public void clearChildren() {
         tilePane.getChildren().clear();
     }
+
+    public void removePiece() {
+        tilePane.getChildren().clear();
+    }
 }

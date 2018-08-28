@@ -145,11 +145,7 @@ public class MainController {
                 button.setOnAction(e -> businessLogic.regularMove(buttonCol));
             } else {
                 button.setOnAction(e-> {
-                    try {
-                        businessLogic.popoutMove(buttonCol);
-                    } catch (ColumnFullException e1) {
-                        e1.printStackTrace();
-                    }
+                businessLogic.popoutMove(buttonCol);
                 });
             }
             grid.add(button, i, row);
@@ -226,5 +222,9 @@ public class MainController {
 
     public void declareDraw() {
         displayMesage("There Are No Moves Left - We All Lose, Just Like In Real Life!", "Draw");
+    }
+
+    public void drawPopOut(int row, int col) {
+        tileControllers[row][col].removePiece();
     }
 }

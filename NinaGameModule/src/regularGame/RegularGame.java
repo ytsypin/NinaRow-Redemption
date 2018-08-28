@@ -35,7 +35,6 @@ public class RegularGame{
         checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
 
         if(!winnerFound) {
-            changeCurrentParticipant();
             gameOver = (getPossibleColumn() == noMove);
         }
     }
@@ -100,7 +99,7 @@ public class RegularGame{
         return currTurn;
     }
 
-    protected void changeCurrentParticipant() {
+    public void changeCurrentParticipant() {
         int participantNumber = currentParticipant.getParticipantSymbol() - 1;
 
         if(participantNumber == allParticipants.size()-1){
@@ -379,7 +378,6 @@ public class RegularGame{
         checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
 
         if (!winnerFound) {
-            changeCurrentParticipant();
             gameOver = (getPossibleColumn() == noMove);
         }
 

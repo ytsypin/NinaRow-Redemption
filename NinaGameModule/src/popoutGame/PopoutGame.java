@@ -22,11 +22,12 @@ public class PopoutGame extends RegularGame {
         }
     }
 
+
     @Override
-    public Turn getParticipantTurn(int col, int turnType) {
+    public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException {
         Turn turnMade;
         if(turnType == Turn.addDisk){
-            turnMade = getParticipantTurn(col, turnType);
+            turnMade = super.getParticipantTurn(col, turnType);
         } else {
             turnMade = getPopoutTurn(col);
         }
@@ -35,7 +36,6 @@ public class PopoutGame extends RegularGame {
             checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
 
             if (!winnerFound) {
-                changeCurrentParticipant();
                 gameOver = (getPossibleColumn() == noMove);
 
             }
@@ -47,6 +47,7 @@ public class PopoutGame extends RegularGame {
     private Turn getPopoutTurn(int col) {
         Turn turnMade = implementPopout(col);
 
+/*
         if(turnMade != null) { // turn was actually made
             // while there are tiles that can drop
             int currRow = gameBoard.getRows() -2;
@@ -65,7 +66,6 @@ public class PopoutGame extends RegularGame {
             }
 
             if (winners.isEmpty()) {
-                changeCurrentParticipant();
                 //gameOver = (getPossibleColumn() == noMove);
             } else {
                 gameOver = true;
@@ -73,41 +73,11 @@ public class PopoutGame extends RegularGame {
         } else {
             // turn was not made, couldn't pop out
         }
+*/
 
         return turnMade;
     }
 
-
-//    private void takePopoutTurn(int col) {
-//        Turn turnMade = implementPopout(col);
-//
-//        if(turnMade != null) { // turn was actually made
-//            // while there are tiles that can drop
-//            int currRow = gameBoard.getRows() -2;
-//            while(gameBoard.getTileSymbol(currRow,col) != gameBoard.getEmptyTile()){
-//                winners = new ArrayList<>();
-//                // drop a tile, check for winner
-//                // keep list of winners, in case of multi-way tie
-//                gameBoard.dropTile(currRow, col);
-//                checkForWinner(currRow+1,col,gameBoard.getTileSymbol(currRow+1,col));
-//
-//                // with each one check for winner
-//                if(winnerFound){
-//                    winners.add(gameBoard.getTileSymbol(currRow+1,col));
-//                    winnerFound = false;
-//                }
-//            }
-//
-//            if (winners.size() == 0) {
-//                changeCurrentParticipant();
-//                //gameOver = (getPossibleColumn() == noMove);
-//            } else {
-//                gameOver = true;
-//            }
-//        } else {
-//            // turn was not made, couldn't pop out
-//        }
-//    }
 
     private Turn implementPopout(int col) {
         Turn turnMade;

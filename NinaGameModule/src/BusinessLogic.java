@@ -56,12 +56,15 @@ public class BusinessLogic {
             if (gameEngine.isWinnerFound()) {
                 controller.declareWinnerFound();
                 gameEngine.deactivateGame();
-            } else if (gameEngine.drawReached()){
-              // Do draw thing
-                controller.declareDraw();
-                gameEngine.deactivateGame();
-            } else {
-                controller.changeCurrPlayer();
+            } else{
+                if (gameEngine.drawReached()){
+                    // Do draw thing
+                    controller.declareDraw();
+                    gameEngine.deactivateGame();
+                } else {
+                    controller.changeCurrPlayer();
+                    gameEngine.changeCurrentParticipant();
+                }
             }
         } catch(ColumnFullException e){
             controller.displayMesage("The selected column is full!", "Column Full");
@@ -72,8 +75,17 @@ public class BusinessLogic {
         }
     }
 
-    public void popoutMove(int col) throws ColumnFullException{
-        gameEngine.takeParticipantTurn(col, Turn.removeDisk);
+    public void popoutMove(int col) {
+        Turn turn = null;
+        try {
+            turn = gameEngine.getParticipantTurn(col, Turn.removeDisk);
+        } catch (ColumnFullException e) { }
+
+        if(turn != null){
+            controller.drawPopOut(turn.getRow()-1, turn.getCol());
+        }
+
+
     }
 
     public boolean isPopoutGame() {
