@@ -411,4 +411,35 @@ public class RegularGame{
             return false;
         }
     }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public Turn getBotTurn() {
+        Turn turnMade = null;
+
+        int col = getPossibleColumn();
+
+        try {
+            turnMade = implementTurn(col);
+        } catch (ColumnFullException e) { }
+
+        checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
+
+        if (!winnerFound) {
+            changeCurrentParticipant();
+            gameOver = (getPossibleColumn() == noMove);
+        }
+
+        return turnMade;
+    }
+
+    public void setActive() {
+        isActive = true;
+    }
+
+    public void deactivateGame() {
+        isActive = false;
+    }
 }

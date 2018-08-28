@@ -92,6 +92,11 @@ public class RightSideController {
         mainController.clearBoard();
 
         isGameActive.setValue(true);
+        businessLogic.setGameIsActive();
+
+        if(businessLogic.currentPlayerIsBot()){
+            businessLogic.makeBotMove();
+        }
     }
 
     public void initialize(){

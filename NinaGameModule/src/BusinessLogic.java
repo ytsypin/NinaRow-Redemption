@@ -55,14 +55,20 @@ public class BusinessLogic {
 
             if (gameEngine.isWinnerFound()) {
                 controller.declareWinnerFound();
+                gameEngine.deactivateGame();
             } else if (gameEngine.drawReached()){
               // Do draw thing
                 controller.declareDraw();
+                gameEngine.deactivateGame();
             } else {
                 controller.changeCurrPlayer();
             }
         } catch(ColumnFullException e){
             controller.displayMesage("The selected column is full!", "Column Full");
+        }
+
+        while(gameEngine.isCurrentParticipantBot()){
+            makeBotMove();
         }
     }
 
@@ -84,5 +90,34 @@ public class BusinessLogic {
 
     public void clearBoard() {
         gameEngine.clearGame();
+    }
+
+    public boolean currentPlayerIsBot() {
+        return gameEngine.isCurrentParticipantBot();
+    }
+
+    public void makeBotMove() {
+        while(currentPlayerIsBot() && gameEngine.getIsActive()) {
+            Turn turn = gameEngine.getBotTurn();
+
+            if (turn != null) {
+                controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());
+            }
+
+            if (gameEngine.isWinnerFound()) {
+                controller.declareWinnerFound();
+                gameEngine.deactivateGame();
+            } else if (gameEngine.drawReached()) {
+                // Do draw thing
+                controller.declareDraw();
+                gameEngine.deactivateGame();
+            } else {
+                controller.changeCurrPlayer();
+            }
+        }
+    }
+
+    public void setGameIsActive() {
+        gameEngine.setActive();
     }
 }
