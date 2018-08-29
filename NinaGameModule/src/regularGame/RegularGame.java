@@ -1,5 +1,6 @@
 package regularGame;
 
+import Exceptions.CantPopoutException;
 import Exceptions.ColumnFullException;
 import gameBoard.NinaBoard;
 import gameBoard.Participant;
@@ -372,7 +373,7 @@ public class RegularGame{
         return (ObservableList<Participant>) allParticipants;
     }
 
-    public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException {
+    public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException, CantPopoutException {
         Turn turnMade = implementTurn(col);
 
         checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());

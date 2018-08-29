@@ -1,3 +1,4 @@
+import Exceptions.CantPopoutException;
 import Exceptions.ColumnFullException;
 import gameBoard.Participant;
 import gameBoard.Turn;
@@ -51,7 +52,44 @@ public class BusinessLogic {
 
             if (turn != null) {
                 controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());
+
+                if (gameEngine.isWinnerFound()) {
+                    controller.declareWinnerFound();
+                    gameEngine.deactivateGame();
+                } else{
+                    if (gameEngine.drawReached()){
+                        // Do draw thing
+                        controller.declareDraw();
+                        gameEngine.deactivateGame();
+                    } else {
+                        controller.changeCurrPlayer();
+                        gameEngine.changeCurrentParticipant();
+                    }
+                }
             }
+
+
+        } catch (ColumnFullException e){
+            controller.displayMesage("The selected column is full!", "Column Full");
+        } catch (CantPopoutException e){}
+
+        while(gameEngine.isCurrentParticipantBot()){
+            makeBotMove();
+        }
+    }
+
+    public void popoutMove(int col) {
+        Turn turn = null;
+        try {
+            turn = gameEngine.getParticipantTurn(col, Turn.removeDisk);
+        } catch (ColumnFullException e) { }
+        catch (CantPopoutException e) {
+            controller.displayMesage("Can't popout this column, your piece is not on the bottom.", "Cant Popout");
+        }
+
+        if(turn != null){
+            controller.popOutTile(turn.getRow(), turn.getCol());
+            controller.cascadeTiles(turn.getCol());
 
             if (gameEngine.isWinnerFound()) {
                 controller.declareWinnerFound();
@@ -66,25 +104,13 @@ public class BusinessLogic {
                     gameEngine.changeCurrentParticipant();
                 }
             }
-        } catch(ColumnFullException e){
-            controller.displayMesage("The selected column is full!", "Column Full");
+
         }
+
 
         while(gameEngine.isCurrentParticipantBot()){
             makeBotMove();
         }
-    }
-
-    public void popoutMove(int col) {
-        Turn turn = null;
-        try {
-            turn = gameEngine.getParticipantTurn(col, Turn.removeDisk);
-        } catch (ColumnFullException e) { }
-
-        if(turn != null){
-            controller.drawPopOut(turn.getRow()-1, turn.getCol());
-        }
-
 
     }
 

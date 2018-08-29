@@ -1,6 +1,8 @@
 package popoutGame;
 
+import Exceptions.CantPopoutException;
 import Exceptions.ColumnFullException;
+import gameBoard.NinaBoard;
 import gameBoard.Participant;
 import gameBoard.Turn;
 import javafx.collections.ObservableList;
@@ -24,7 +26,7 @@ public class PopoutGame extends RegularGame {
 
 
     @Override
-    public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException {
+    public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException, CantPopoutException {
         Turn turnMade;
         if(turnType == Turn.addDisk){
             turnMade = super.getParticipantTurn(col, turnType);
@@ -32,11 +34,37 @@ public class PopoutGame extends RegularGame {
             turnMade = getPopoutTurn(col);
         }
 
-        if(turnMade != null) {
-            checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
+        if(turnMade == null){
+            throw new CantPopoutException();
+        } else {
+            if(turnType == Turn.removeDisk) {
+                boolean winnersFound = false;
 
-            if (!winnerFound) {
-                gameOver = (getPossibleColumn() == noMove);
+                int currRow = turnMade.getRow()-2;
+
+                while (gameBoard.getTileSymbol(currRow, col) != NinaBoard.getEmptyTile()) {
+                    int currentTile = gameBoard.getTileSymbol(currRow,col);
+                    gameBoard.dropTile(currRow, col);
+
+                    checkForWinner(currRow, col, currentTile);
+
+                    if (winnerFound) {
+                        winners.add(gameBoard.getTileSymbol(currRow, col));
+                        winnersFound = true;
+                        winnerFound = false;
+                    }
+                    currRow--;
+                }
+
+                if (winnersFound) {
+                    winnerFound = true;
+                }
+            } else {
+                checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
+
+                if (!winnerFound) {
+                    gameOver = (getPossibleColumn() == noMove);
+                }
 
             }
         }
@@ -46,34 +74,6 @@ public class PopoutGame extends RegularGame {
 
     private Turn getPopoutTurn(int col) {
         Turn turnMade = implementPopout(col);
-
-/*
-        if(turnMade != null) { // turn was actually made
-            // while there are tiles that can drop
-            int currRow = gameBoard.getRows() -2;
-            while(gameBoard.getTileSymbol(currRow,col) != gameBoard.getEmptyTile()){
-                winners = new ArrayList<>();
-                // drop a tile, check for winner
-                // keep list of winners, in case of multi-way tie
-                gameBoard.dropTile(currRow, col);
-                checkForWinner(currRow+1,col,gameBoard.getTileSymbol(currRow+1,col));
-
-                // with each one check for winner
-                if(winnerFound){
-                    winners.add(gameBoard.getTileSymbol(currRow+1,col));
-                    winnerFound = false;
-                }
-            }
-
-            if (winners.isEmpty()) {
-                //gameOver = (getPossibleColumn() == noMove);
-            } else {
-                gameOver = true;
-            }
-        } else {
-            // turn was not made, couldn't pop out
-        }
-*/
 
         return turnMade;
     }
@@ -86,7 +86,6 @@ public class PopoutGame extends RegularGame {
 
             turnMade = new Turn(gameBoard.getRows()-1, col, currentParticipant.getParticipantSymbol(), Turn.removeDisk);
         } else {
-            // can't popout under this selection
             turnMade = null;
         }
 

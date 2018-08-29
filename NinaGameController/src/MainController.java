@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -224,7 +225,17 @@ public class MainController {
         displayMesage("There Are No Moves Left - We All Lose, Just Like In Real Life!", "Draw");
     }
 
-    public void drawPopOut(int row, int col) {
+    public void popOutTile(int row, int col) {
         tileControllers[row][col].removePiece();
+    }
+
+    public void cascadeTiles(int col) {
+        int currRow = 1;
+
+        while(tileControllers[currRow][col].isOccupied()){
+            Node droppingNode = tileControllers[currRow+1][col].getChild();
+            tileControllers[currRow+1][col].clearChildren();
+            tileControllers[currRow][col].attachNode(droppingNode);
+        }
     }
 }

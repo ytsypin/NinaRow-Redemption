@@ -34,4 +34,20 @@ public class TileController {
     public void removePiece() {
         tilePane.getChildren().clear();
     }
+
+    public boolean isOccupied() {
+        return tilePane.getChildren().size() != 0;
+    }
+
+    public Node getChild() {
+        if(this.isOccupied()) {
+            return tilePane.getChildren().get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public void attachNode(Node droppingNode) {
+        tilePane.getChildren().add(droppingNode);
+    }
 }
