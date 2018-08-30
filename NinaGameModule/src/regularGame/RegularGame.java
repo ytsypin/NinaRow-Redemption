@@ -38,6 +38,7 @@ public class RegularGame{
         if(!winnerFound) {
             gameOver = (getPossibleColumn() == noMove);
         }
+
     }
 
     public boolean isCurrentParticipantBot() {
@@ -56,7 +57,7 @@ public class RegularGame{
         return !((getFirstOpenRow(col) < 0) || (gameBoard.getRows() < getFirstOpenRow(col)));
     }
 
-    private List<Integer> getPossibleMoves() {
+    protected List<Integer> getPossibleMoves() {
         LinkedList<Integer> possibleMoves = new LinkedList<>();
         int numOfCols = gameBoard.getCols();
 
@@ -85,7 +86,7 @@ public class RegularGame{
     }
 
     protected Turn implementTurn(int col) throws ColumnFullException {
-        Turn currTurn = null;
+        Turn currTurn;
         if(!gameBoard.isColFull(col)){
             int row = getFirstOpenRow(col);
             currTurn = new Turn(row, col, currentParticipant.getParticipantSymbol(), Turn.addDisk);
@@ -367,6 +368,7 @@ public class RegularGame{
         this.gameBoard = new NinaBoard(rows, cols);
         currentParticipant = allParticipants.get(0);
         turnHistory = new LinkedList<>();
+        winners = new LinkedList<>();
     }
 
     public ObservableList<Participant> getParticipants() {
@@ -404,11 +406,15 @@ public class RegularGame{
     }
 
     public boolean drawReached() {
-        if(gameOver && !winnerFound){
-            return true;
-        } else {
-            return false;
+        int cols = gameBoard.getCols();
+        boolean noMoves = true;
+        for(int i =0 ; i < cols && noMoves; i++){
+            if(getPossibleColumn() != noMove){
+                noMoves = false;
+            }
         }
+
+        return noMoves;
     }
 
     public boolean getIsActive() {
@@ -440,5 +446,9 @@ public class RegularGame{
 
     public void deactivateGame() {
         isActive = false;
+    }
+
+    public void resetTurns() {
+        currentParticipant = allParticipants.get(0);
     }
 }

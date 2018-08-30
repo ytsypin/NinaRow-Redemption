@@ -64,4 +64,9 @@ public class Participant{
     public void clearTurns() {
         turnsTaken.setValue(0);
     }
+
+    @Override
+    public String toString() {
+        return name.getValue();
+    }
 }

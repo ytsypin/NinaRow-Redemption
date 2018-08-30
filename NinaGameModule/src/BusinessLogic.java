@@ -58,7 +58,7 @@ public class BusinessLogic {
                     gameEngine.deactivateGame();
                 } else{
                     if (gameEngine.drawReached()){
-                        // Do draw thing
+                        // TODO: Do draw thing
                         controller.declareDraw();
                         gameEngine.deactivateGame();
                     } else {
@@ -73,7 +73,7 @@ public class BusinessLogic {
             controller.displayMesage("The selected column is full!", "Column Full");
         } catch (CantPopoutException e){}
 
-        while(gameEngine.isCurrentParticipantBot()){
+        while(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
             makeBotMove();
         }
     }
@@ -88,15 +88,19 @@ public class BusinessLogic {
         }
 
         if(turn != null){
-            controller.popOutTile(turn.getRow(), turn.getCol());
-            controller.cascadeTiles(turn.getCol());
+            drawPopoutTurn(turn);
 
             if (gameEngine.isWinnerFound()) {
-                controller.declareWinnerFound();
+                if(gameEngine.getParticipants().size() == 1) {
+                    controller.declareWinnerFound();
+                } else {
+                    controller.declareWinners(gameEngine.getParticipants());
+                }
                 gameEngine.deactivateGame();
             } else{
+
                 if (gameEngine.drawReached()){
-                    // Do draw thing
+                    // TODO: Do draw thing
                     controller.declareDraw();
                     gameEngine.deactivateGame();
                 } else {
@@ -108,10 +112,15 @@ public class BusinessLogic {
         }
 
 
-        while(gameEngine.isCurrentParticipantBot()){
+        while(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
             makeBotMove();
         }
 
+    }
+
+    private void drawPopoutTurn(Turn turn) {
+        controller.popOutTile(turn.getRow(), turn.getCol());
+        controller.cascadeTiles(turn.getCol());
     }
 
     public boolean isPopoutGame() {
@@ -139,13 +148,17 @@ public class BusinessLogic {
             Turn turn = gameEngine.getBotTurn();
 
             if (turn != null) {
-                controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());
+                if(turn.getTurnType() == Turn.removeDisk){
+                    drawPopoutTurn(turn);
+                } else {
+                    controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());
+                }
             }
 
             if (gameEngine.isWinnerFound()) {
                 controller.declareWinnerFound();
                 gameEngine.deactivateGame();
-            } else if (gameEngine.drawReached()) {
+            } else if (gameEngine.drawReached() && !isPopoutGame()) {
                 // Do draw thing
                 controller.declareDraw();
                 gameEngine.deactivateGame();
@@ -157,5 +170,9 @@ public class BusinessLogic {
 
     public void setGameIsActive() {
         gameEngine.setActive();
+    }
+
+    public void resetTurns() {
+        gameEngine.resetTurns();
     }
 }

@@ -93,10 +93,18 @@ public class RightSideController {
 
         isGameActive.setValue(true);
         businessLogic.setGameIsActive();
+        businessLogic.resetTurns();
+        resetTurns();
 
         if(businessLogic.currentPlayerIsBot()){
             businessLogic.makeBotMove();
         }
+    }
+
+    private void resetTurns() {
+        turnIndicators[currentPlayerTurn].setText("");
+        currentPlayerTurn = 0;
+        turnIndicators[currentPlayerTurn].setText("#");
     }
 
     public void initialize(){

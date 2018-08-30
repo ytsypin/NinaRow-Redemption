@@ -1,6 +1,8 @@
 import Exceptions.ColumnFullException;
+import gameBoard.Participant;
 import gameBoard.Turn;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -218,7 +220,6 @@ public class MainController {
         dialog.setHeaderText(message);
         dialog.getDialogPane().getButtonTypes().add(okButton);
         dialog.showAndWait();
-
     }
 
     public void declareDraw() {
@@ -230,12 +231,28 @@ public class MainController {
     }
 
     public void cascadeTiles(int col) {
-        int currRow = 1;
+        int currRow = businessLogic.getRows()-1;
 
-        while(tileControllers[currRow][col].isOccupied()){
-            Node droppingNode = tileControllers[currRow+1][col].getChild();
-            tileControllers[currRow+1][col].clearChildren();
+        while(currRow > 0 && tileControllers[currRow-1][col].isOccupied()){
+            Node droppingNode = tileControllers[currRow-1][col].getChild();
+            tileControllers[currRow-1][col].clearChildren();
             tileControllers[currRow][col].attachNode(droppingNode);
+            currRow--;
         }
+    }
+
+    public void declareWinners(ObservableList<Participant> participants) {
+        StringBuilder winners = new StringBuilder();
+
+        for(Participant participant: participants){
+            winners.append(participant);
+            if(participant != participants.get(participants.size()-1)){
+                winners.append(", ");
+            }
+        }
+
+        winners.append("!");
+
+        displayMesage("Several winners found! " + winners.toString(), "Winners Found");
     }
 }
