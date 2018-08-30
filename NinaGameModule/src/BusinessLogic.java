@@ -58,7 +58,6 @@ public class BusinessLogic {
                     gameEngine.deactivateGame();
                 } else{
                     if (gameEngine.drawReached()){
-                        // TODO: Do draw thing
                         controller.declareDraw();
                         gameEngine.deactivateGame();
                     } else {

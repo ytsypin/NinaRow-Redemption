@@ -17,15 +17,6 @@ public class PopoutGame extends RegularGame {
         super(n, readyParticipants, rows, cols);
     }
 
-    @Override
-    public void takeParticipantTurn(int col, int turnType) throws ColumnFullException {
-        if(turnType == Turn.addDisk){
-            super.takeParticipantTurn(col, turnType);
-        } else {
-//            takePopoutTurn(col);
-        }
-    }
-
 
     @Override
     public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException, CantPopoutException {
@@ -70,10 +61,6 @@ public class PopoutGame extends RegularGame {
             }
         } else {
             checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
-
-            if (!winnerFound) {
-                gameOver = (getPossibleColumn() == noMove);
-            }
 
         }
     }
@@ -137,7 +124,6 @@ public class PopoutGame extends RegularGame {
 
         if (!winnerFound) {
             changeCurrentParticipant();
-            gameOver = (getPossibleColumn() == noMove);
         }
 
         return turnMade;
@@ -167,25 +153,12 @@ public class PopoutGame extends RegularGame {
 
     @Override
     public int getGameType() {
-        return super.popoutGame;
+        return popoutGame;
     }
 
     @Override
     public boolean drawReached() {
         return noPopoutMovesLeft() && super.drawReached();
-    }
-
-    private boolean regularMovesLeft() {
-        int cols = gameBoard.getCols();
-        boolean possibleMoves = false;
-
-        for(int i = 0 ; i < cols && !possibleMoves; i++){
-            if(getPossibleColumn() != noMove){
-                possibleMoves = true;
-            }
-        }
-
-        return possibleMoves;
     }
 
     private boolean noPopoutMovesLeft() {

@@ -13,18 +13,6 @@ public class CircularGame extends RegularGame {
     }
 
     @Override
-    public void takeParticipantTurn(int col, int turnType) throws ColumnFullException {
-        Turn turnMade = implementTurn(col);
-
-        checkForWinner(turnMade.getRow(), turnMade.getCol(), currentParticipant.getParticipantSymbol());
-
-        if (!winnerFound) {
-            changeCurrentParticipant();
-            gameOver = (getPossibleColumn() == noMove);
-        }
-    }
-
-    @Override
     public Turn getParticipantTurn(int col, int turnType) throws ColumnFullException{
         Turn turnMade = implementTurn(col);
 
@@ -32,9 +20,6 @@ public class CircularGame extends RegularGame {
 
         if (!winnerFound) {
             changeCurrentParticipant();
-            gameOver = (getPossibleColumn() == noMove);
-        } else {
-
         }
 
         return turnMade;
@@ -51,10 +36,6 @@ public class CircularGame extends RegularGame {
         }
         if(!winnerFound){
             checkForWinningSpanningVertically(row, col, currParticipantSymbol);
-        }
-
-        if(winnerFound || (getPossibleColumn() == noMove)){
-            gameOver = true;
         }
     }
 

@@ -21,25 +21,12 @@ public class RegularGame{
     protected NinaBoard gameBoard;
     protected boolean winnerFound = false;
     protected boolean isActive = false;
-    protected boolean gameOver = false;
     protected List<Turn> turnHistory;
     protected List<Participant> allParticipants;
     protected Participant currentParticipant = null;
     protected static int noMove = -1;
     protected List<Integer> winners;
 
-    public void takeParticipantTurn(int col, int turnType) throws ColumnFullException {
-        // implement the turn
-        // presume the column is valid, and there is a possible move.
-        Turn turnMade = implementTurn(col);
-
-        checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
-
-        if(!winnerFound) {
-            gameOver = (getPossibleColumn() == noMove);
-        }
-
-    }
 
     public boolean isCurrentParticipantBot() {
         return currentParticipant.getIsBot()/*.getValue()*/;
@@ -123,10 +110,6 @@ public class RegularGame{
         }
         if(!winnerFound){
             checkForWinningAcrossRight(row,col,currParticipantSymbol);
-        }
-
-        if(winnerFound){
-            gameOver = true;
         }
     }
 
@@ -329,9 +312,7 @@ public class RegularGame{
     public void takeBotTurn() throws ColumnFullException {
         int column = getPossibleColumn();
 
-        if (column == noMove) {
-            gameOver = true;
-        } else {
+        if (column != noMove) {
             implementTurn(column);
         }
     }
@@ -343,7 +324,6 @@ public class RegularGame{
         return  N == that.N &&
                 winnerFound == that.winnerFound &&
                 isActive == that.isActive &&
-                gameOver == that.gameOver &&
                 Objects.equals(gameBoard, that.gameBoard) &&
                 Objects.equals(turnHistory, that.turnHistory) &&
                 Objects.equals(allParticipants, that.allParticipants) &&
@@ -351,7 +331,7 @@ public class RegularGame{
     }
 
     public int hashCode() {
-        return Objects.hash(N, gameBoard, winnerFound, isActive, gameOver, turnHistory, allParticipants, currentParticipant);
+        return Objects.hash(N, gameBoard, winnerFound, isActive, turnHistory, allParticipants, currentParticipant);
     }
 
     protected int getNumOfParticipants(){
@@ -380,10 +360,6 @@ public class RegularGame{
 
         checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
 
-        if (!winnerFound) {
-            gameOver = (getPossibleColumn() == noMove);
-        }
-
         return turnMade;
     }
 
@@ -406,15 +382,7 @@ public class RegularGame{
     }
 
     public boolean drawReached() {
-        int cols = gameBoard.getCols();
-        boolean noMoves = true;
-        for(int i =0 ; i < cols && noMoves; i++){
-            if(getPossibleColumn() != noMove){
-                noMoves = false;
-            }
-        }
-
-        return noMoves;
+        return getPossibleColumn() == noMove;
     }
 
     public boolean getIsActive() {
@@ -434,7 +402,6 @@ public class RegularGame{
 
         if (!winnerFound) {
             changeCurrentParticipant();
-            gameOver = (getPossibleColumn() == noMove);
         }
 
         return turnMade;
