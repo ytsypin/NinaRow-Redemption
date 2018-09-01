@@ -34,6 +34,7 @@ public class MainController {
     @FXML private Label goalHeader;
     @FXML private Label goalLabel;
     @FXML private Label informationLabel;
+    @FXML private HBox topHBox;
 
     private BusinessLogic businessLogic;
     private Stage primaryStage;
@@ -46,6 +47,9 @@ public class MainController {
         businessLogic = new BusinessLogic();
         rightSideController.init(this, businessLogic);
         replayAreaController.init(this, businessLogic);
+        borderPane.getStyleClass().add("gameBorder");
+        topHBox.getStyleClass().add("topHBox");
+        entireWindow.getStylesheets().add("/fxmlResources/cssResources/Style1.css");
     }
 
     public void bindTaskToUI(Task<RegularGame> currentRunningTask) {
@@ -88,9 +92,6 @@ public class MainController {
             createButtonRow(grid, cols, 0, Turn.addDisk);
 
             createGameBoard(grid, rows, cols);
-
-            double x = (boardAnchorPane.getWidth() - ((cols+2)*TILE_SIZE)*((rows+2)*TILE_SIZE))/2;
-            double y = (boardAnchorPane.getHeight() - ((cols+2)*TILE_SIZE)*((rows+2)*TILE_SIZE))/2;
 
             AnchorPane.setRightAnchor(grid, .0);
             AnchorPane.setTopAnchor(grid, .0);

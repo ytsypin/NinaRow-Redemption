@@ -20,7 +20,7 @@
            <fx:include fx:id="replayArea" source="ReplayArea.fxml" />
        </left>
       <top>
-         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <HBox fx:id="topHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
                <Label fx:id="gameTypeHeader" text="Game Type:">
                   <HBox.margin>
