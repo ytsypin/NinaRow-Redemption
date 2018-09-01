@@ -49,7 +49,6 @@ public class MainController {
         replayAreaController.init(this, businessLogic);
         borderPane.getStyleClass().add("gameBorder");
         topHBox.getStyleClass().add("topHBox");
-        entireWindow.getStylesheets().add("/fxmlResources/cssResources/Style1.css");
     }
 
     public void bindTaskToUI(Task<RegularGame> currentRunningTask) {
@@ -78,6 +77,7 @@ public class MainController {
         public void createBoard() {
             boardAnchorPane.getChildren().clear();
             GridPane gridShape = makeGrid();
+            gridShape.getStyleClass().add("board");
             gridShape.setAlignment(Pos.CENTER);
             boardAnchorPane.getChildren().add(gridShape);
             primaryStage.sizeToScene();
@@ -255,5 +255,10 @@ public class MainController {
         winners.append("!");
 
         displayMesage("Several winners found! " + winners.toString(), "Winners Found");
+    }
+
+    public void setSkin(String skinPath) {
+        entireWindow.getStylesheets().removeAll();
+        entireWindow.getStylesheets().add(skinPath);
     }
 }

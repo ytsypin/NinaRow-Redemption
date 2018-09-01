@@ -1,0 +1,20 @@
+.label, .button{
+    -fx-font-family: Calibri;
+    -fx-text-fill: Black;
+}
+
+.borderPane{
+    -fx-background-color: White;
+}
+
+.HBox{
+    -fx-background-color: White;
+}
+
+.VBox{
+    -fx-background-color: White;
+}
+
+.board{
+    -fx-background-color: White;
+}

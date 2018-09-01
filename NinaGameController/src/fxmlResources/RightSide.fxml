@@ -19,7 +19,7 @@
             <Separator prefWidth="200.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <VBox fx:id="centerVBox" alignment="CENTER" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="playerInfoLabel" text="Player Information">
                      <VBox.margin>
@@ -29,7 +29,7 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <HBox>
+                  <HBox >
                      <children>
                         <VBox fx:id="playerLabelArea" alignment="TOP_RIGHT" prefHeight="200.0" stylesheets="@cssResources/PlayerLabels.css">
                            <children>
