@@ -1,20 +1,33 @@
 .label, .button{
     -fx-font-family: Calibri;
     -fx-text-fill: Black;
+    -fx-font-size: 14;
 }
 
 .borderPane{
-    -fx-background-color: White;
+    -fx-background-color: transparent;
 }
 
 .HBox{
-    -fx-background-color: White;
+    -fx-background-color: transparent;
 }
 
 .VBox{
-    -fx-background-color: White;
+    -fx-background-color: transparent;
 }
 
 .board{
-    -fx-background-color: White;
+    -fx-background-color: transparent;
+}
+
+.table-view{
+    -fx-background-insets: 0, 1 1 1 1;
+}
+
+.table-row-cell {
+    -fx-background-insets: 0, 1 1 1 1;
+}
+
+.column-header{
+    -fx-background-color: transparent;
 }

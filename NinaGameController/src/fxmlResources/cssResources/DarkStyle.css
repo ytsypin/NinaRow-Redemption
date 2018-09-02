@@ -1,20 +1,23 @@
 .label, .button{
     -fx-font-family: Calibri;
     -fx-text-fill: #366090;
+    -fx-font-size: 14;
 }
 
-.borderPane{
+.whole{
     -fx-background-color: #171224;
 }
 
-.HBox{
-    -fx-background-color: #171224;
+.table-view{
+    -fx-background-color: #4d55e7;
+    -fx-background-insets: 0, 1 1 1 1;
 }
 
-.VBox{
-    -fx-background-color: #171224;
+.table-row-cell {
+    -fx-background-color: #4d55e7;
+    -fx-background-insets: 0, 1 1 1 1;
 }
 
-.board{
-    -fx-background-color: #171224;
+.column-header{
+    -fx-background-color: #175020;
 }

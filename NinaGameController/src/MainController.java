@@ -49,6 +49,8 @@ public class MainController {
         replayAreaController.init(this, businessLogic);
         borderPane.getStyleClass().add("gameBorder");
         topHBox.getStyleClass().add("topHBox");
+
+        setSkin("/fxmlResources/cssResources/DefaultStyle.css");
     }
 
     public void bindTaskToUI(Task<RegularGame> currentRunningTask) {
@@ -258,7 +260,7 @@ public class MainController {
     }
 
     public void setSkin(String skinPath) {
-        entireWindow.getStylesheets().removeAll();
+        entireWindow.getStylesheets().clear();
         entireWindow.getStylesheets().add(skinPath);
     }
 }

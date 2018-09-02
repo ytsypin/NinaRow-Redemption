@@ -133,7 +133,6 @@ public class RightSideController {
 
         startGameButton.disableProperty().bind(
                 Bindings.or(isFileLoaded.not(),isGameActive));
-        skinSelector.disableProperty().bind(isFileLoaded.not());
         loadXMLButton.disableProperty().bind(isGameActive);
 
         skinSelector.setItems(styles);
@@ -225,8 +224,6 @@ public class RightSideController {
         for(int i = 0; i < size; i++){
             playerLabels[i].getStyleClass().add("player"+ (i+1));
         }
-
-        playerLabels[0].getStyleClass().add("style1");
 
         turnIndicators[0].setText("#");
         currentPlayerTurn = 0;

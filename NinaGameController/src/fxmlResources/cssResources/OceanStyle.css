@@ -1,20 +1,23 @@
 .label, .button{
     -fx-font-family: Calibri;
     -fx-text-fill: rgba(51, 186, 43, 0.73);
+    -fx-font-size: 14;
 }
 
-.borderPane{
+.whole{
     -fx-background-color: #4e8bc8;
 }
 
-.HBox{
-    -fx-background-color: #4e8bc8;
+.table-view{
+    -fx-background-color: #4d55e7;
+    -fx-background-insets: 0, 1 1 1 1;
 }
 
-.VBox{
-    -fx-background-color: #4e8bc8;
+.table-row-cell {
+    -fx-background-color: #4d55e7;
+    -fx-background-insets: 0, 1 1 1 1;
 }
 
-.board{
-    -fx-background-color: #4e8bc8;
+.column-header{
+    -fx-background-color: #175020;
 }

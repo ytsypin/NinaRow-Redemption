@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <ScrollPane fx:id="entireWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
-   <BorderPane fx:id="borderPane">
+   <BorderPane fx:id="borderPane" styleClass="whole" >
        <right>
            <fx:include fx:id="rightSide" source="RightSide.fxml" />
        </right>
