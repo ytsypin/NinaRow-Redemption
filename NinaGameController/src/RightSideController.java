@@ -1,9 +1,11 @@
 import gameBoard.Participant;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,8 +38,10 @@ public class RightSideController {
     @FXML private Button loadXMLButton;
     @FXML private Button startGameButton;
     @FXML private Button exitButton;
-    @FXML private ComboBox<?> skinSelector;
+    @FXML private ComboBox<String> skinSelector;
     @FXML private VBox playerLabelArea;
+
+    private ObservableList<String> styles = FXCollections.observableArrayList("Default", "Dark", "Sundown", "Ocean");
 
     @FXML private Label player1;
     @FXML private Label player2;
@@ -131,6 +135,20 @@ public class RightSideController {
                 Bindings.or(isFileLoaded.not(),isGameActive));
         skinSelector.disableProperty().bind(isFileLoaded.not());
         loadXMLButton.disableProperty().bind(isGameActive);
+
+        skinSelector.setItems(styles);
+
+        skinSelector.setOnAction((e) ->{
+            if(skinSelector.getSelectionModel().getSelectedItem().equals("Default")){
+                mainController.setSkin("/fxmlResources/cssResources/DefaultStyle.css");
+            } else if(skinSelector.getSelectionModel().getSelectedItem().equals("Dark")){
+                mainController.setSkin("/fxmlResources/cssResources/DarkStyle.css");
+            } else if(skinSelector.getSelectionModel().getSelectedItem().equals("Sundown")){
+                mainController.setSkin("/fxmlResources/cssResources/SundownStyle.css");
+            } else {
+                mainController.setSkin("/fxmlResources/cssResources/OceanStyle.css");
+            }
+        });
     }
 
     public void setPlayerInfoTable(ObservableList<Participant> playerData){
