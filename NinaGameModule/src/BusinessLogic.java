@@ -110,7 +110,6 @@ public class BusinessLogic {
 
         }
 
-
         while(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
             makeBotMove();
         }
@@ -119,15 +118,11 @@ public class BusinessLogic {
 
     private void drawPopoutTurn(Turn turn) {
         controller.popOutTile(turn.getRow(), turn.getCol());
-        controller.cascadeTiles(turn.getCol(), turn.getRow());
+        controller.cascadeTiles(turn.getRow(), turn.getCol());
     }
 
     public boolean isPopoutGame() {
-        return gameEngine.getGameType() == gameEngine.popoutGame;
-    }
-
-    public void createParticipantList(ObservableList<Participant> playerData) {
-
+        return gameEngine.getGameType() == RegularGame.popoutGame;
     }
 
     public String getCurrentPlayerName() {
@@ -184,7 +179,7 @@ public class BusinessLogic {
                 if(gameEngine.getTileSymbol(i,j) == gameEngine.getCurrentPlayerSymbol()){
                     gameEngine.removeTile(i,j);
                     gameEngine.cascadeTiles(i, j);
-                    controller.cascadeTiles(j, i);
+                    controller.cascadeTiles(i, j);
                 }
             }
         }

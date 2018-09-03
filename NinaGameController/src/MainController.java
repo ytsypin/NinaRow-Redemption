@@ -72,7 +72,6 @@ public class MainController {
         public void populateTable() {
             rightSideController.clearPlayerInfoTable();
             rightSideController.setPlayerInfoTable(businessLogic.getPlayerData());
-            businessLogic.createParticipantList(businessLogic.getPlayerData());
             createBoard();
         }
 
@@ -233,8 +232,8 @@ public class MainController {
         tileControllers[row][col].removePiece();
     }
 
-    public void cascadeTiles(int col, int row) {
-        while(row > 0 && tileControllers[row][col].isOccupied()){
+    public void cascadeTiles(int row, int col) {
+        while(row > 0 && tileControllers[row-1][col].isOccupied()){
             Node droppingNode = tileControllers[row-1][col].getChild();
             tileControllers[row-1][col].clearChildren();
             tileControllers[row][col].attachNode(droppingNode);
