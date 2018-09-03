@@ -179,9 +179,12 @@ public class BusinessLogic {
                 if(gameEngine.getTileSymbol(i,j) == gameEngine.getCurrentPlayerSymbol()){
                     gameEngine.removeTile(i,j);
                     gameEngine.cascadeTiles(i, j);
+                    controller.popOutTile(i,j);
                     controller.cascadeTiles(i, j);
                 }
             }
         }
+
+
     }
 }

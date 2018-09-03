@@ -260,4 +260,5 @@ public class MainController {
         entireWindow.getStylesheets().clear();
         entireWindow.getStylesheets().add(skinPath);
     }
+
 }
