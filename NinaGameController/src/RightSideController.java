@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,6 +39,7 @@ public class RightSideController {
     @FXML private Button exitButton;
     @FXML private ComboBox<String> skinSelector;
     @FXML private VBox playerLabelArea;
+    @FXML private Button leaveGameButton;
 
     private ObservableList<String> styles = FXCollections.observableArrayList("Default", "Dark", "Sundown", "Ocean");
 
@@ -103,6 +103,12 @@ public class RightSideController {
         if(businessLogic.currentPlayerIsBot()){
             businessLogic.makeBotMove();
         }
+    }
+
+    @FXML
+    void onLeavePressed(ActionEvent event) {
+        businessLogic.leaveGame();
+
     }
 
     private void resetTurns() {

@@ -78,8 +78,8 @@ public class NinaBoard implements Serializable {
     }
 
 
-    public void popOutTile(int col){
-        boardTiles[rows.getValue()-1][col] = emptyTile;
+    public void popOutTile(int row, int col){
+        boardTiles[row][col] = emptyTile;
     }
 
     public void dropTile(int row, int col) {

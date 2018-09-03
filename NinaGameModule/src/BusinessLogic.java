@@ -119,7 +119,7 @@ public class BusinessLogic {
 
     private void drawPopoutTurn(Turn turn) {
         controller.popOutTile(turn.getRow(), turn.getCol());
-        controller.cascadeTiles(turn.getCol());
+        controller.cascadeTiles(turn.getCol(), turn.getRow());
     }
 
     public boolean isPopoutGame() {
@@ -173,5 +173,20 @@ public class BusinessLogic {
 
     public void resetTurns() {
         gameEngine.resetTurns();
+    }
+
+    public void leaveGame() {
+        int rows = gameEngine.getRows();
+        int cols = gameEngine.getCols();
+
+        for(int i = 0; i < rows; i++){
+            for(int j = 0 ; j < cols; j++){
+                if(gameEngine.getTileSymbol(i,j) == gameEngine.getCurrentPlayerSymbol()){
+                    gameEngine.removeTile(i,j);
+                    gameEngine.cascadeTiles(i, j);
+                    controller.cascadeTiles(i, j);
+                }
+            }
+        }
     }
 }

@@ -61,7 +61,6 @@ public class PopoutGame extends RegularGame {
             }
         } else {
             checkForWinner(turnMade.getRow(), col, currentParticipant.getParticipantSymbol());
-
         }
     }
 
@@ -75,7 +74,7 @@ public class PopoutGame extends RegularGame {
     private Turn implementPopout(int col) {
         Turn turnMade;
         if(gameBoard.getTileSymbol(gameBoard.getRows()-1,col) == currentParticipant.getParticipantSymbol()){
-            gameBoard.popOutTile(col);
+            gameBoard.popOutTile(gameBoard.getRows()-1, col);
 
             turnMade = new Turn(gameBoard.getRows()-1, col, currentParticipant.getParticipantSymbol(), Turn.removeDisk);
         } else {

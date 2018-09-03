@@ -233,14 +233,12 @@ public class MainController {
         tileControllers[row][col].removePiece();
     }
 
-    public void cascadeTiles(int col) {
-        int currRow = businessLogic.getRows()-1;
-
-        while(currRow > 0 && tileControllers[currRow-1][col].isOccupied()){
-            Node droppingNode = tileControllers[currRow-1][col].getChild();
-            tileControllers[currRow-1][col].clearChildren();
-            tileControllers[currRow][col].attachNode(droppingNode);
-            currRow--;
+    public void cascadeTiles(int col, int row) {
+        while(row > 0 && tileControllers[row][col].isOccupied()){
+            Node droppingNode = tileControllers[row-1][col].getChild();
+            tileControllers[row-1][col].clearChildren();
+            tileControllers[row][col].attachNode(droppingNode);
+            row--;
         }
     }
 

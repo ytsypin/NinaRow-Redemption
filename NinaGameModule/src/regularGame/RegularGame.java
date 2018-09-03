@@ -418,4 +418,20 @@ public class RegularGame{
     public void resetTurns() {
         currentParticipant = allParticipants.get(0);
     }
+
+    public int getCurrentPlayerSymbol() {
+        return getCurrentPlayerSymbol();
+    }
+
+    public int getTileSymbol(int row, int col) {
+        return gameBoard.getTileSymbol(row,col);
+    }
+
+    public void removeTile(int row, int col) {
+        gameBoard.popOutTile(row, col);
+    }
+
+    public void cascadeTiles(int row, int col) {
+
+    }
 }
