@@ -440,9 +440,10 @@ public class RegularGame{
 
             checkForWinner(row, col, currentTile);
 
-
             if(winnerFound){
-                winners.add(gameBoard.getTileSymbol(row, col));
+                if(!winners.contains(currentTile)) {
+                    winners.add(currentTile);
+                }
                 winnersFound = true;
                 winnerFound = false;
             }

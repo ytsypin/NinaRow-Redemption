@@ -184,7 +184,7 @@ public class BusinessLogic {
                 if(gameEngine.getTileSymbol(i,j) == gameEngine.getCurrentPlayerSymbol()){
                     gameEngine.removeTile(i,j);
                     gameEngine.cascadeTiles(i, j);
-                    controller.cascadeTiles(i, j);
+                    controller.cascadeTiles(j, i);
                 }
             }
         }
