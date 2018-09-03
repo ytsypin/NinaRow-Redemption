@@ -432,6 +432,10 @@ public class RegularGame{
     }
 
     public void cascadeTiles(int row, int col) {
+        boolean winnersFound = false;
 
+        while((row > 0) && gameBoard.getTileSymbol(row-1, col) != NinaBoard.getEmptyTile(){
+
+        }
     }
 }
