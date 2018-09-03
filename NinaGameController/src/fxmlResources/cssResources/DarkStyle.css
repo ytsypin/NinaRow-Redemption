@@ -1,8 +1,18 @@
 .label, .button{
     -fx-font-family: Calibri;
-    -fx-text-fill: #366090;
     -fx-font-size: 14;
+    -fx-text-fill: #8b8c90;
 }
+
+.button{
+    -fx-background-color: #1e4ac1;
+}
+
+.tile{
+    -fx-background-color: #284681;
+    -fx-border-color: #000000;
+}
+
 
 .whole{
     -fx-background-color: #171224;

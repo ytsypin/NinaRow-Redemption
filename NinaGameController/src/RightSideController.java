@@ -148,6 +148,8 @@ public class RightSideController {
                 mainController.setSkin("/fxmlResources/cssResources/OceanStyle.css");
             }
         });
+
+        skinSelector.getSelectionModel().select("Default");
     }
 
     public void setPlayerInfoTable(ObservableList<Participant> playerData){

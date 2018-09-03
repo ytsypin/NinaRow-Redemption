@@ -4,20 +4,10 @@
     -fx-font-size: 14;
 }
 
-.borderPane{
-    -fx-background-color: transparent;
-}
 
-.HBox{
-    -fx-background-color: transparent;
-}
-
-.VBox{
-    -fx-background-color: transparent;
-}
-
-.board{
-    -fx-background-color: transparent;
+.tile{
+    -fx-background-color: Aquamarine;
+    -fx-border-color: Blue;
 }
 
 .table-view{

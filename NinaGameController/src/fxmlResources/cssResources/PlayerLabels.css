@@ -1,7 +1,3 @@
-.tile{
-    -fx-background-color: Aquamarine;
-    -fx-border-color: Blue;
-}
 
 .player1{
     -fx-background-color: Yellow;
@@ -9,13 +5,13 @@
 }
 
 .player2{
-    -fx-background-color: YellowGreen;
-    -fx-fill: YellowGreen;
+    -fx-background-color: Green;
+    -fx-fill: Green;
 }
 
 .player3{
-    -fx-background-color: SteelBlue;
-    -fx-fill: SteelBlue;
+    -fx-background-color: Blue;
+    -fx-fill: Blue;
 }
 
 .player4{
@@ -24,11 +20,11 @@
 }
 
 .player5{
-    -fx-background-color: Sienna;
-    -fx-fill: Sienna;
+    -fx-background-color: #fe00dd;
+    -fx-fill: #fe00dd;
 }
 
 .player6{
-    -fx-background-color: Salmon;
-    -fx-fill: Salmon;
+    -fx-background-color: Red;
+    -fx-fill: Red;
 }

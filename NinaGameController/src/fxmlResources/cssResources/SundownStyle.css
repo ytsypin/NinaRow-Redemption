@@ -1,9 +1,29 @@
 .label, .button{
     -fx-font-family: Calibri;
-    -fx-text-fill: rgba(173, 116, 203, 0.78);
+    -fx-text-fill: rgba(80, 0, 10, 0.78);
     -fx-font-size: 14;
 }
 
+.tile{
+    -fx-background-color: #ffe2c1;
+    -fx-border-color: #ff8051;
+}
+
+
 .whole{
     -fx-background-color: #ff8b46;
+}
+
+.table-view{
+    -fx-background-color: #e76f77;
+    -fx-background-insets: 0, 1 1 1 1;
+}
+
+.table-row-cell {
+    -fx-background-color: #e76f77;
+    -fx-background-insets: 0, 1 1 1 1;
+}
+
+.column-header{
+    -fx-background-color: #b3928e;
 }

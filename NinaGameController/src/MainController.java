@@ -139,7 +139,7 @@ public class MainController {
 
     private void createButtonRow(GridPane grid, int cols, int row, int turnType) {
         for(int i = 0; i < cols; i++){
-            Image buttonImage = new Image(getClass().getResourceAsStream("Resources/arrow-down.png"));
+            Image buttonImage = new Image(getClass().getResourceAsStream("Resources/download.png"));
             ImageView buttonImageView = new ImageView(buttonImage);
             buttonImageView.setFitHeight(TILE_SIZE/2);
             buttonImageView.setFitWidth(TILE_SIZE/2);
