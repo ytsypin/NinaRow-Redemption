@@ -24,6 +24,7 @@ public class BusinessLogic {
                 controller.populateTable();
                 controller.populateLabels(gameEngine.getParticipants().size());
                 controller.setGameTypeAndGoal(gameEngine.getGameType(), gameEngine.getN());
+                controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
             }
         });
 
@@ -61,8 +62,8 @@ public class BusinessLogic {
                         controller.declareDraw();
                         gameEngine.deactivateGame();
                     } else {
-                        controller.changeCurrPlayer();
                         gameEngine.changeCurrentParticipant();
+                        controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
                     }
                 }
             }
@@ -99,12 +100,11 @@ public class BusinessLogic {
             } else{
 
                 if (gameEngine.drawReached()){
-                    // TODO: Do draw thing
                     controller.declareDraw();
                     gameEngine.deactivateGame();
                 } else {
-                    controller.changeCurrPlayer();
                     gameEngine.changeCurrentParticipant();
+                    controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
                 }
             }
 
@@ -157,7 +157,7 @@ public class BusinessLogic {
                 controller.declareDraw();
                 gameEngine.deactivateGame();
             } else {
-                controller.changeCurrPlayer();
+                controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
             }
         }
     }
@@ -184,7 +184,8 @@ public class BusinessLogic {
                 }
             }
         }
-
-
+        gameEngine.removeCurrentPlayer();
+        controller.removeCurrentPlayer();
+        controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
     }
 }

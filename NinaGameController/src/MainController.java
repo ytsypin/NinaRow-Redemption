@@ -200,8 +200,8 @@ public class MainController {
         goalLabel.setText(n.toString());
     }
 
-    public void changeCurrPlayer() {
-        rightSideController.changeCurrentPlayer();
+    public void changeCurrPlayer(String playerName) {
+        rightSideController.changeCurrentPlayer(playerName);
     }
 
     public void clearBoard() {
@@ -261,4 +261,7 @@ public class MainController {
         entireWindow.getStylesheets().add(skinPath);
     }
 
+    public void removeCurrentPlayer() {
+        rightSideController.removeCurrentPlayer();
+    }
 }

@@ -24,6 +24,7 @@ public class RegularGame{
     protected List<Turn> turnHistory;
     protected List<Participant> allParticipants;
     protected Participant currentParticipant = null;
+    private int currentParticipantNumber = 0;
     protected static int noMove = -1;
     protected List<Integer> winners;
 
@@ -89,15 +90,13 @@ public class RegularGame{
     }
 
     public void changeCurrentParticipant() {
-        int participantNumber = currentParticipant.getParticipantSymbol() - 1;
-
-        if(participantNumber == allParticipants.size()-1){
-            participantNumber = 0;
+        if(currentParticipantNumber == allParticipants.size()-1){
+            currentParticipantNumber = 0;
         } else {
-            participantNumber++;
+            currentParticipantNumber++;
         }
 
-        currentParticipant = allParticipants.get(participantNumber);
+        currentParticipant = allParticipants.get(currentParticipantNumber);
     }
 
     protected void checkForWinner(int row, int col, int currParticipantSymbol){
@@ -454,5 +453,10 @@ public class RegularGame{
         if(winnersFound){
             winnerFound = true;
         }
+    }
+
+    public void removeCurrentPlayer() {
+        allParticipants.remove(currentParticipant);
+        changeCurrentParticipant();
     }
 }

@@ -25,6 +25,8 @@ import regularGame.RegularGame;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RightSideController {
 
@@ -40,6 +42,7 @@ public class RightSideController {
     @FXML private ComboBox<String> skinSelector;
     @FXML private VBox playerLabelArea;
     @FXML private Button leaveGameButton;
+    @FXML private Label currentPlayerLabel;
 
     private ObservableList<String> styles = FXCollections.observableArrayList("Default", "Dark", "Sundown", "Ocean");
 
@@ -50,16 +53,7 @@ public class RightSideController {
     @FXML private Label player5;
     @FXML private Label player6;
 
-    private Label[] playerLabels = new Label[6];
-
-    @FXML private Label p1TurnIndicator;
-    @FXML private Label p2TurnIndicator;
-    @FXML private Label p3TurnIndicator;
-    @FXML private Label p4TurnIndicator;
-    @FXML private Label p5TurnIndicator;
-    @FXML private Label p6TurnIndicator;
-
-    private Label[] turnIndicators = new Label[6];
+    private List<Label> playerLabels = new ArrayList();
 
 
     private MainController mainController;
@@ -69,7 +63,9 @@ public class RightSideController {
 
     private SimpleBooleanProperty isFileLoaded;
     public SimpleBooleanProperty isGameActive;
+/*
     private int currentPlayerTurn;
+*/
 
     public RightSideController() {
         isFileLoaded = new SimpleBooleanProperty(false);
@@ -98,7 +94,9 @@ public class RightSideController {
         isGameActive.setValue(true);
         businessLogic.setGameIsActive();
         businessLogic.resetTurns();
+/*
         resetTurns();
+*/
 
         if(businessLogic.currentPlayerIsBot()){
             businessLogic.makeBotMove();
@@ -111,11 +109,11 @@ public class RightSideController {
 
     }
 
+/*
     private void resetTurns() {
-        turnIndicators[currentPlayerTurn].setText("");
         currentPlayerTurn = 0;
-        turnIndicators[currentPlayerTurn].setText("#");
     }
+*/
 
     public void initialize(){
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -123,19 +121,12 @@ public class RightSideController {
         isBotCol.setCellValueFactory(new PropertyValueFactory<>("isBot"));
         numOfTurnsCol.setCellValueFactory(new PropertyValueFactory<>("turnsTaken"));
 
-        playerLabels[0] = player1;
-        playerLabels[1] = player2;
-        playerLabels[2] = player3;
-        playerLabels[3] = player4;
-        playerLabels[4] = player5;
-        playerLabels[5] = player6;
-
-        turnIndicators[0] = p1TurnIndicator;
-        turnIndicators[1] = p2TurnIndicator;
-        turnIndicators[2] = p3TurnIndicator;
-        turnIndicators[3] = p4TurnIndicator;
-        turnIndicators[4] = p5TurnIndicator;
-        turnIndicators[5] = p6TurnIndicator;
+        playerLabels.add(player1);
+        playerLabels.add(player2);
+        playerLabels.add(player3);
+        playerLabels.add(player4);
+        playerLabels.add(player5);
+        playerLabels.add(player6);
 
         startGameButton.disableProperty().bind(
                 Bindings.or(isFileLoaded.not(),isGameActive));
@@ -221,36 +212,43 @@ public class RightSideController {
 
     public void populateLabels(int size) {
         for(int i = 0; i < 6; i++){
-            playerLabels[i].setText("");
-            playerLabels[i].getStyleClass().clear();
+            playerLabels.get(i).setText("");
+            playerLabels.get(i).getStyleClass().clear();
         }
 
         for(int i = size; i < 6; i++){
-            playerLabels[i].setText("");
+            playerLabels.get(i).setText("");
         }
 
         for(int i = 0; i < size; i++){
-            playerLabels[i].getStyleClass().add("player"+ (i+1));
+            playerLabels.get(i).getStyleClass().add("player"+ (i+1));
         }
-
-        turnIndicators[0].setText("#");
+/*
         currentPlayerTurn = 0;
+*/
 
         isFileLoaded.setValue(true);
     }
 
-    public void changeCurrentPlayer() {
-        turnIndicators[currentPlayerTurn].setText("");
+    public void changeCurrentPlayer(String playerName) {
+/*
         if(currentPlayerTurn == businessLogic.getPlayerData().size()-1){
             currentPlayerTurn = 0;
         } else {
             currentPlayerTurn++;
         }
+*/
 
-        turnIndicators[currentPlayerTurn].setText("#");
+        currentPlayerLabel.setText(playerName);
     }
 
     public void clearPlayerInfoTable() {
         playerTable.getItems().clear();
+    }
+
+    public void removeCurrentPlayer() {
+/*
+        playerLabels.remove(currentPlayerTurn);
+*/
     }
 }

@@ -94,58 +94,6 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <VBox fx:id="playerLabelArea1" alignment="TOP_RIGHT" prefHeight="200.0" stylesheets="@cssResources/PlayerLabels.css">
-                           <children>
-                              <Label fx:id="p1TurnIndicator" alignment="CENTER" contentDisplay="CENTER" prefHeight="4.0" prefWidth="4.0" text=" ">
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label fx:id="p2TurnIndicator" contentDisplay="CENTER" prefHeight="4.0" prefWidth="4.0" text=" ">
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="2.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="2.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="p3TurnIndicator" contentDisplay="CENTER" prefHeight="4.0" prefWidth="4.0" text=" ">
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="2.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="2.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="p4TurnIndicator" contentDisplay="CENTER" prefHeight="4.0" prefWidth="4.0" text=" ">
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="2.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="2.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="p5TurnIndicator" contentDisplay="CENTER" prefHeight="4.0" prefWidth="4.0" text=" ">
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="2.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="2.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="p6TurnIndicator" contentDisplay="CENTER" prefHeight="4.0" prefWidth="4.0" text=" ">
-                                 <VBox.margin>
-                                    <Insets bottom="3.0" left="3.0" right="3.0" top="4.0" />
-                                 </VBox.margin>
-                                 <padding>
-                                    <Insets top="2.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets top="27.0" />
-                           </padding>
-                        </VBox>
                      </children>
                   </HBox>
                </children>
@@ -154,35 +102,54 @@
       </BorderPane>
    </center>
    <top>
-      <HBox alignment="CENTER" prefHeight="50.0" BorderPane.alignment="CENTER">
+      <VBox BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="loadXMLButton" mnemonicParsing="false" onAction="#onLoadPressed" text="Load XML">
-               <HBox.margin>
-                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="startGameButton" mnemonicParsing="false" onAction="#onStartPressed" text="Start">
-               <HBox.margin>
-                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitPressed" text="Exit">
-               <HBox.margin>
-                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-               </HBox.margin>
-            </Button>
-            <Separator orientation="VERTICAL" prefHeight="200.0">
-               <HBox.margin>
-                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-               </HBox.margin>
-            </Separator>
-            <ComboBox fx:id="skinSelector" prefWidth="150.0">
-               <HBox.margin>
-                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-               </HBox.margin>
-            </ComboBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label contentDisplay="CENTER" text="Current Player:">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="currentPlayerLabel" contentDisplay="CENTER">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox alignment="CENTER" prefHeight="50.0">
+               <children>
+                  <Button fx:id="loadXMLButton" mnemonicParsing="false" onAction="#onLoadPressed" text="Load XML">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="startGameButton" mnemonicParsing="false" onAction="#onStartPressed" text="Start">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="exitButton" mnemonicParsing="false" onAction="#onExitPressed" text="Exit">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Separator orientation="VERTICAL" prefHeight="200.0">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </Separator>
+                  <ComboBox fx:id="skinSelector" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </top>
    <bottom>
       <Button fx:id="leaveGameButton" mnemonicParsing="false" onAction="#onLeavePressed" text="Leave Game" BorderPane.alignment="CENTER" />
