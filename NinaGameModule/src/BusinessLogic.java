@@ -185,7 +185,14 @@ public class BusinessLogic {
             }
         }
         gameEngine.removeCurrentPlayer();
-        controller.removeCurrentPlayer();
         controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
+
+        if(gameEngine.getParticipants().size() == 1){
+            // TODO: end the game, notify
+        }
+
+        if(gameEngine.isWinnerFound()) {
+            // TODO: notify winners
+        }
     }
 }

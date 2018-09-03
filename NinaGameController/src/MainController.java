@@ -260,8 +260,4 @@ public class MainController {
         entireWindow.getStylesheets().clear();
         entireWindow.getStylesheets().add(skinPath);
     }
-
-    public void removeCurrentPlayer() {
-        rightSideController.removeCurrentPlayer();
-    }
 }

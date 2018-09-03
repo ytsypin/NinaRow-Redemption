@@ -110,11 +110,17 @@
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
                   </Label>
                   <Label fx:id="currentPlayerLabel" contentDisplay="CENTER">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
@@ -152,6 +158,11 @@
       </VBox>
    </top>
    <bottom>
-      <Button fx:id="leaveGameButton" mnemonicParsing="false" onAction="#onLeavePressed" text="Leave Game" BorderPane.alignment="CENTER" />
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Separator prefWidth="200.0" />
+            <Button fx:id="leaveGameButton" mnemonicParsing="false" onAction="#onLeavePressed" text="Leave Game" />
+         </children>
+      </VBox>
    </bottom>
 </BorderPane>

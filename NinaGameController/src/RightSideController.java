@@ -63,9 +63,6 @@ public class RightSideController {
 
     private SimpleBooleanProperty isFileLoaded;
     public SimpleBooleanProperty isGameActive;
-/*
-    private int currentPlayerTurn;
-*/
 
     public RightSideController() {
         isFileLoaded = new SimpleBooleanProperty(false);
@@ -109,12 +106,6 @@ public class RightSideController {
 
     }
 
-/*
-    private void resetTurns() {
-        currentPlayerTurn = 0;
-    }
-*/
-
     public void initialize(){
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         idCol.setCellValueFactory(new PropertyValueFactory<>("idNum"));
@@ -131,6 +122,7 @@ public class RightSideController {
         startGameButton.disableProperty().bind(
                 Bindings.or(isFileLoaded.not(),isGameActive));
         loadXMLButton.disableProperty().bind(isGameActive);
+        leaveGameButton.disableProperty().bind(isGameActive.not());
 
         skinSelector.setItems(styles);
 
@@ -223,32 +215,15 @@ public class RightSideController {
         for(int i = 0; i < size; i++){
             playerLabels.get(i).getStyleClass().add("player"+ (i+1));
         }
-/*
-        currentPlayerTurn = 0;
-*/
 
         isFileLoaded.setValue(true);
     }
 
     public void changeCurrentPlayer(String playerName) {
-/*
-        if(currentPlayerTurn == businessLogic.getPlayerData().size()-1){
-            currentPlayerTurn = 0;
-        } else {
-            currentPlayerTurn++;
-        }
-*/
-
         currentPlayerLabel.setText(playerName);
     }
 
     public void clearPlayerInfoTable() {
         playerTable.getItems().clear();
-    }
-
-    public void removeCurrentPlayer() {
-/*
-        playerLabels.remove(currentPlayerTurn);
-*/
     }
 }

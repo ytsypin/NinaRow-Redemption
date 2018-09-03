@@ -1,7 +1,7 @@
 .label, .button{
     -fx-font-family: Calibri;
     -fx-text-fill: rgba(13, 4, 25, 0.73);
-    -fx-font-size: 14;
+    -fx-font-size: 16;
 }
 
 .tile{
