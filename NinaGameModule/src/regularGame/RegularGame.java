@@ -420,7 +420,7 @@ public class RegularGame{
     }
 
     public int getCurrentPlayerSymbol() {
-        return getCurrentPlayerSymbol();
+        return currentParticipant.getParticipantSymbol();
     }
 
     public int getTileSymbol(int row, int col) {
@@ -448,6 +448,10 @@ public class RegularGame{
             }
 
             row--;
+        }
+
+        if(winnersFound){
+            winnerFound = true;
         }
     }
 }
