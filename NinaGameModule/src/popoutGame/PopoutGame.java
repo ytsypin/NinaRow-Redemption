@@ -49,7 +49,9 @@ public class PopoutGame extends RegularGame {
                 checkForWinner(currRow, col, currentTile);
 
                 if (winnerFound) {
-                    winners.add(gameBoard.getTileSymbol(currRow, col));
+                    if(!winners.contains(gameBoard.getTileSymbol(currRow, col))) {
+                        winners.add(gameBoard.getTileSymbol(currRow, col));
+                    }
                     winnersFound = true;
                     winnerFound = false;
                 }

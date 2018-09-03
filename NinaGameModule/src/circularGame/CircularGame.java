@@ -28,14 +28,14 @@ public class CircularGame extends RegularGame {
     @Override
     public void checkForWinner(int row, int col, int currParticipantSymbol){
         checkForWinningAcrossLeft(row, col, currParticipantSymbol);
-        if(!winnerFound) {
-            checkForWinningAcrossRight(row, col, currParticipantSymbol);
-        }
-        if(!winnerFound){
-            checkForWinningSpanningHorizontally(row, col, currParticipantSymbol);
-        }
-        if(!winnerFound){
-            checkForWinningSpanningVertically(row, col, currParticipantSymbol);
+        checkForWinningAcrossRight(row, col, currParticipantSymbol);
+        checkForWinningSpanningHorizontally(row, col, currParticipantSymbol);
+        checkForWinningSpanningVertically(row, col, currParticipantSymbol);
+
+        if(winnerFound){
+            if(!winners.contains(currParticipantSymbol)){
+                winners.add(currParticipantSymbol);
+            }
         }
     }
 

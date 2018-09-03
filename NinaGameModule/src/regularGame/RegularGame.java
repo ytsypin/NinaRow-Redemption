@@ -33,7 +33,7 @@ public class RegularGame{
     }
 
     public boolean isWinnerFound() {
-        return winnerFound;
+        return winners.size() != 0;
     }
 
     public int getN() {
@@ -102,14 +102,14 @@ public class RegularGame{
 
     protected void checkForWinner(int row, int col, int currParticipantSymbol){
         checkForWinningRow(row, col, currParticipantSymbol);
-        if(!winnerFound){
-            checkForWinningCol(row, col, currParticipantSymbol);
-        }
-        if(!winnerFound){
-            checkForWinningAcrossLeft(row,col,currParticipantSymbol);
-        }
-        if(!winnerFound){
-            checkForWinningAcrossRight(row,col,currParticipantSymbol);
+        checkForWinningCol(row, col, currParticipantSymbol);
+        checkForWinningAcrossLeft(row,col,currParticipantSymbol);
+        checkForWinningAcrossRight(row,col,currParticipantSymbol);
+
+        if(winnerFound){
+            if(!winners.contains(currParticipantSymbol)){
+                winners.add(currParticipantSymbol);
+            }
         }
     }
 
@@ -441,6 +441,13 @@ public class RegularGame{
             checkForWinner(row, col, currentTile);
 
 
+            if(winnerFound){
+                winners.add(gameBoard.getTileSymbol(row, col));
+                winnersFound = true;
+                winnerFound = false;
+            }
+
+            row--;
         }
     }
 }
