@@ -160,15 +160,15 @@ public class BusinessLogic {
             }
 
             if (gameEngine.isWinnerFound()) {
-                Platform.runLater(()->{controller.declareWinnerFound();});
+                Platform.runLater(()->controller.declareWinnerFound());
                 gameEngine.deactivateGame();
-                Platform.runLater(()->{controller.deactivate();});
+                Platform.runLater(()->controller.deactivate());
             } else if (gameEngine.drawReached()) {
-                Platform.runLater(()->{controller.declareDraw();});
+                Platform.runLater(()->controller.declareDraw());
                 gameEngine.deactivateGame();
-                Platform.runLater(()->{controller.deactivate();});
+                Platform.runLater(()->controller.deactivate());
             } else {
-                Platform.runLater(()->{controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());});
+                Platform.runLater(()->controller.changeCurrPlayer(gameEngine.getCurrentPlayerName()));
             }
         }
     }

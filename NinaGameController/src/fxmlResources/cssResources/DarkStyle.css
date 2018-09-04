@@ -13,9 +13,9 @@
     -fx-border-color: #000000;
 }
 
-
 .whole{
     -fx-background-color: #171224;
+    -fx-background-repeat: repeat;
 }
 
 .table-view{

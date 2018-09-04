@@ -22,7 +22,6 @@ import java.net.URL;
 public class MainController {
     @FXML AnchorPane boardAnchorPane;
     @FXML private RightSideController rightSideController;
-    @FXML private ReplayController replayAreaController;
     @FXML private BorderPane borderPane;
     @FXML private ScrollPane entireWindow;
     @FXML private Label gameTypeHeader;
@@ -42,7 +41,6 @@ public class MainController {
     @FXML public void initialize(){
         businessLogic = new BusinessLogic();
         rightSideController.init(this, businessLogic);
-        replayAreaController.init(this, businessLogic);
         borderPane.getStyleClass().add("gameBorder");
         topHBox.getStyleClass().add("topHBox");
 
@@ -57,7 +55,6 @@ public class MainController {
     public void setBusinessLogic(BusinessLogic businessLogic) {
             this.businessLogic = businessLogic;
             businessLogic.setController(this);
-            replayAreaController.setBusinessLogic(businessLogic);
             rightSideController.setBusinessLogic(businessLogic);
         }
 
@@ -155,10 +152,6 @@ public class MainController {
 
     public void populateLabels(int size) {
         rightSideController.populateLabels(size);
-    }
-
-    public void disableReplayAreaBind(SimpleBooleanProperty isFileLoaded) {
-        replayAreaController.disableButtonsBind(isFileLoaded);
     }
 
     public void endProgram() {

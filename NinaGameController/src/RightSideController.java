@@ -75,8 +75,6 @@ public class RightSideController {
         this.mainController = mainController;
         this.businessLogic = businessLogic;
 
-        mainController.disableReplayAreaBind(isFileLoaded);
-
     }
 
     @FXML
