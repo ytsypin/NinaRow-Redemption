@@ -2,6 +2,7 @@ import Exceptions.CantPopoutException;
 import Exceptions.ColumnFullException;
 import gameBoard.Participant;
 import gameBoard.Turn;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import regularGame.RegularGame;
@@ -75,9 +76,12 @@ public class BusinessLogic {
             controller.displayMesage("The selected column is full!", "Column Full");
         } catch (CantPopoutException e){}
 
-        while(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
-            makeBotMove();
 
+
+        if(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
+            BotMoveTask botMove = new BotMoveTask(this);
+
+            new Thread(botMove).start();
         }
     }
 
@@ -115,8 +119,9 @@ public class BusinessLogic {
 
         }
 
-        while(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
-            makeBotMove();
+        if(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
+            BotMoveTask botMove = new BotMoveTask(this);
+            new Thread(botMove).start();
         }
 
     }
@@ -150,20 +155,20 @@ public class BusinessLogic {
                 if(turn.getTurnType() == Turn.removeDisk){
                     drawPopoutTurn(turn);
                 } else {
-                    controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());
+                    Platform.runLater(() -> {controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());});
                 }
             }
 
             if (gameEngine.isWinnerFound()) {
-                controller.declareWinnerFound();
+                Platform.runLater(()->{controller.declareWinnerFound();});
                 gameEngine.deactivateGame();
-                controller.deactivate();
+                Platform.runLater(()->{controller.deactivate();});
             } else if (gameEngine.drawReached()) {
-                controller.declareDraw();
+                Platform.runLater(()->{controller.declareDraw();});
                 gameEngine.deactivateGame();
-                controller.deactivate();
+                Platform.runLater(()->{controller.deactivate();});
             } else {
-                controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
+                Platform.runLater(()->{controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());});
             }
         }
     }
