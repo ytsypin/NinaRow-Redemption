@@ -59,46 +59,47 @@ public class MainController {
             rightSideController.setBusinessLogic(businessLogic);
         }
 
-        public void setPrimaryStage(Stage primaryStage){
-            this.primaryStage = primaryStage;
-        }
-
-        public void populateTable() {
-            rightSideController.clearPlayerInfoTable();
-            rightSideController.setPlayerInfoTable(businessLogic.getPlayerData());
-            createBoard();
-        }
-
-        public void createBoard() {
-            boardAnchorPane.getChildren().clear();
-            GridPane gridShape = makeGrid();
-            gridShape.getStyleClass().add("board");
-            gridShape.setAlignment(Pos.CENTER);
-            boardAnchorPane.getChildren().add(gridShape);
-            primaryStage.sizeToScene();
-        }
-
-        private GridPane makeGrid() {
-            int rows = businessLogic.getRows();
-            int cols = businessLogic.getCols();
-
-            GridPane grid = new GridPane();
-
-            createButtonRow(grid, cols, 0, Turn.addDisk);
-
-            createGameBoard(grid, rows, cols);
-
-            AnchorPane.setRightAnchor(grid, .0);
-            AnchorPane.setTopAnchor(grid, .0);
-            AnchorPane.setLeftAnchor(grid, .0);
-            AnchorPane.setBottomAnchor(grid, .0);
-
-            if(businessLogic.isPopoutGame()){
-                createButtonRow(grid, cols, rows+2, Turn.removeDisk);
-            }
-
-            return grid;
+    public void setPrimaryStage(Stage primaryStage){
+        this.primaryStage = primaryStage;
+        rightSideController.setPrimaryStage(primaryStage);
     }
+
+    public void populateTable() {
+        rightSideController.clearPlayerInfoTable();
+        rightSideController.setPlayerInfoTable(businessLogic.getPlayerData());
+        createBoard();
+    }
+
+    public void createBoard() {
+        boardAnchorPane.getChildren().clear();
+        GridPane gridShape = makeGrid();
+        gridShape.getStyleClass().add("board");
+        gridShape.setAlignment(Pos.CENTER);
+        boardAnchorPane.getChildren().add(gridShape);
+        primaryStage.sizeToScene();
+    }
+
+    private GridPane makeGrid() {
+        int rows = businessLogic.getRows();
+        int cols = businessLogic.getCols();
+
+        GridPane grid = new GridPane();
+
+        createButtonRow(grid, cols, 0, Turn.addDisk);
+
+        createGameBoard(grid, rows, cols);
+
+        AnchorPane.setRightAnchor(grid, .0);
+        AnchorPane.setTopAnchor(grid, .0);
+        AnchorPane.setLeftAnchor(grid, .0);
+        AnchorPane.setBottomAnchor(grid, .0);
+
+        if(businessLogic.isPopoutGame()){
+            createButtonRow(grid, cols, rows+2, Turn.removeDisk);
+        }
+
+        return grid;
+}
 
     private void createGameBoard(GridPane grid, int rows, int cols) {
         try {

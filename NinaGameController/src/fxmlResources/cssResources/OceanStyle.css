@@ -1,7 +1,11 @@
 .label, .button{
-    -fx-font-family: Calibri;
+    -fx-font-family: Bahnschrift;
     -fx-text-fill: rgba(13, 4, 25, 0.73);
-    -fx-font-size: 16;
+    -fx-font-size: 15;
+}
+
+.button{
+    -fx-background-color: #20c157;
 }
 
 .tile{

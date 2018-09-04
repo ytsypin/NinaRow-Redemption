@@ -125,6 +125,8 @@ public class RightSideController {
 
         skinSelector.setItems(styles);
 
+        skinSelector.getStyleClass().add("button");
+
         skinSelector.setOnAction((e) ->{
             if(skinSelector.getSelectionModel().getSelectedItem().equals("Default")){
                 mainController.setSkin("/fxmlResources/cssResources/DefaultStyle.css");
@@ -135,6 +137,8 @@ public class RightSideController {
             } else {
                 mainController.setSkin("/fxmlResources/cssResources/OceanStyle.css");
             }
+
+            primaryStage.sizeToScene();
         });
 
         skinSelector.getSelectionModel().select("Default");
