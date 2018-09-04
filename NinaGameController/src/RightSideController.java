@@ -26,7 +26,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RightSideController {
 
@@ -53,7 +55,7 @@ public class RightSideController {
     @FXML private Label player5;
     @FXML private Label player6;
 
-    private List<Label> playerLabels = new ArrayList();
+    private Map<Integer, Label> playerLabels = new HashMap();
 
 
     private MainController mainController;
@@ -91,9 +93,8 @@ public class RightSideController {
         isGameActive.setValue(true);
         businessLogic.setGameIsActive();
         businessLogic.resetTurns();
-/*
-        resetTurns();
-*/
+        setPlayerInfoTable(businessLogic.getPlayerData());
+
 
         if(businessLogic.currentPlayerIsBot()){
             businessLogic.makeBotMove();
@@ -112,12 +113,12 @@ public class RightSideController {
         isBotCol.setCellValueFactory(new PropertyValueFactory<>("isBot"));
         numOfTurnsCol.setCellValueFactory(new PropertyValueFactory<>("turnsTaken"));
 
-        playerLabels.add(player1);
-        playerLabels.add(player2);
-        playerLabels.add(player3);
-        playerLabels.add(player4);
-        playerLabels.add(player5);
-        playerLabels.add(player6);
+        playerLabels.put(0, player1);
+        playerLabels.put(1, player2);
+        playerLabels.put(2, player3);
+        playerLabels.put(3, player4);
+        playerLabels.put(4, player5);
+        playerLabels.put(5, player6);
 
         startGameButton.disableProperty().bind(
                 Bindings.or(isFileLoaded.not(),isGameActive));
@@ -225,5 +226,12 @@ public class RightSideController {
 
     public void clearPlayerInfoTable() {
         playerTable.getItems().clear();
+    }
+
+    public void removeCurrPlayerColorLabel(int playerSymbol) {
+        Label playerToRemove = playerLabels.get(playerSymbol);
+        playerLabels.remove(playerSymbol);
+
+        playerLabelArea.getChildren().remove(playerToRemove);
     }
 }

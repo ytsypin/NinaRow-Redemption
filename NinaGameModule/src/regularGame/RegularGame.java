@@ -5,6 +5,7 @@ import Exceptions.ColumnFullException;
 import gameBoard.NinaBoard;
 import gameBoard.Participant;
 import gameBoard.Turn;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.LinkedList;
@@ -23,6 +24,7 @@ public class RegularGame{
     protected boolean isActive = false;
     protected List<Turn> turnHistory;
     protected List<Participant> allParticipants;
+    protected List<Participant> originalParticipants;
     protected Participant currentParticipant = null;
     private int currentParticipantNumber = 0;
     protected static int noMove = -1;
@@ -343,11 +345,12 @@ public class RegularGame{
 
     public RegularGame(int n, ObservableList<Participant> allParticipants, int rows, int cols) {
         N = n;
-        this.allParticipants = allParticipants;
+        this.allParticipants = FXCollections.observableArrayList(allParticipants);
         this.gameBoard = new NinaBoard(rows, cols);
         currentParticipant = allParticipants.get(0);
         turnHistory = new LinkedList<>();
         winners = new LinkedList<>();
+        originalParticipants = FXCollections.observableArrayList(allParticipants);
     }
 
     public ObservableList<Participant> getParticipants() {
@@ -415,6 +418,7 @@ public class RegularGame{
     }
 
     public void resetTurns() {
+        allParticipants = FXCollections.observableArrayList(originalParticipants);
         currentParticipant = allParticipants.get(0);
     }
 

@@ -57,10 +57,12 @@ public class BusinessLogic {
                 if (gameEngine.isWinnerFound()) {
                     controller.declareWinnerFound();
                     gameEngine.deactivateGame();
+                    controller.deactivate();
                 } else{
                     if (gameEngine.drawReached()){
                         controller.declareDraw();
                         gameEngine.deactivateGame();
+                        controller.deactivate();
                     } else {
                         gameEngine.changeCurrentParticipant();
                         controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
@@ -75,6 +77,7 @@ public class BusinessLogic {
 
         while(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
             makeBotMove();
+
         }
     }
 
@@ -97,11 +100,13 @@ public class BusinessLogic {
                     controller.declareWinners(gameEngine.getParticipants());
                 }
                 gameEngine.deactivateGame();
+                controller.deactivate();
             } else{
 
                 if (gameEngine.drawReached()){
                     controller.declareDraw();
                     gameEngine.deactivateGame();
+                    controller.deactivate();
                 } else {
                     gameEngine.changeCurrentParticipant();
                     controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
@@ -152,10 +157,11 @@ public class BusinessLogic {
             if (gameEngine.isWinnerFound()) {
                 controller.declareWinnerFound();
                 gameEngine.deactivateGame();
-            } else if (gameEngine.drawReached() && !isPopoutGame()) {
-                // Do draw thing
+                controller.deactivate();
+            } else if (gameEngine.drawReached()) {
                 controller.declareDraw();
                 gameEngine.deactivateGame();
+                controller.deactivate();
             } else {
                 controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
             }
@@ -184,15 +190,24 @@ public class BusinessLogic {
                 }
             }
         }
+        controller.removeCurrPlayerColorLabel(gameEngine.getCurrentPlayerSymbol()-1);
         gameEngine.removeCurrentPlayer();
         controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
 
         if(gameEngine.getParticipants().size() == 1){
-            // TODO: end the game, notify
-        }
-
-        if(gameEngine.isWinnerFound()) {
-            // TODO: notify winners
+            controller.displayMesage("There is only one player left...You won I guess?", "One Player Left");
+            gameEngine.deactivateGame();
+            controller.deactivate();
+        } else {
+            if (gameEngine.isWinnerFound()) {
+                if (gameEngine.getParticipants().size() == 1) {
+                    controller.declareWinnerFound();
+                } else {
+                    controller.declareWinners(gameEngine.getParticipants());
+                }
+                gameEngine.deactivateGame();
+                controller.deactivate();
+            }
         }
     }
 }

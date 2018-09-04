@@ -1,4 +1,3 @@
-import Exceptions.ColumnFullException;
 import gameBoard.Participant;
 import gameBoard.Turn;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -9,14 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import regularGame.RegularGame;
 
@@ -259,5 +255,13 @@ public class MainController {
     public void setSkin(String skinPath) {
         entireWindow.getStylesheets().clear();
         entireWindow.getStylesheets().add(skinPath);
+    }
+
+    public void deactivate() {
+        rightSideController.isGameActive.setValue(false);
+    }
+
+    public void removeCurrPlayerColorLabel(int playerSymbol) {
+        rightSideController.removeCurrPlayerColorLabel(playerSymbol);
     }
 }
