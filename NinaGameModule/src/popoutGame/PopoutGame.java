@@ -25,7 +25,6 @@ public class PopoutGame extends RegularGame {
             turnMade = super.getParticipantTurn(col, turnType);
         } else {
             turnMade = getPopoutTurn(col);
-
         }
 
         if(turnMade == null){
@@ -72,8 +71,6 @@ public class PopoutGame extends RegularGame {
 
         return turnMade;
     }
-
-
 
     private Turn implementPopout(int col) {
         Turn turnMade;

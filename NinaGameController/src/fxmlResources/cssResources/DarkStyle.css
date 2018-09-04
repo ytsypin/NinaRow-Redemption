@@ -8,6 +8,10 @@
     -fx-background-color: #1e4ac1;
 }
 
+.currentPlayer{
+    -fx-font-size: 50;
+}
+
 .tile{
     -fx-background-color: #284681;
     -fx-border-color: #000000;

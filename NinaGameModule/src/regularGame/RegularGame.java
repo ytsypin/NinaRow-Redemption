@@ -419,7 +419,8 @@ public class RegularGame{
 
     public void resetTurns() {
         allParticipants = FXCollections.observableArrayList(originalParticipants);
-        currentParticipant = allParticipants.get(0);
+        currentParticipantNumber = 0;
+        currentParticipant = allParticipants.get(currentParticipantNumber);
     }
 
     public int getCurrentPlayerSymbol() {
@@ -463,7 +464,7 @@ public class RegularGame{
         allParticipants.remove(currentParticipant);
 
         if(!allParticipants.isEmpty()) {
-            changeCurrentParticipant();
+            currentParticipant = allParticipants.get(currentParticipantNumber);
         }
     }
 }

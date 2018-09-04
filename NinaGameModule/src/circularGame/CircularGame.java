@@ -18,10 +18,6 @@ public class CircularGame extends RegularGame {
 
         checkForWinner(turnMade.getRow(), turnMade.getCol(), currentParticipant.getParticipantSymbol());
 
-        if (!winnerFound) {
-            changeCurrentParticipant();
-        }
-
         return turnMade;
     }
 

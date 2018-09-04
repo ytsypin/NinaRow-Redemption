@@ -12,10 +12,12 @@ public class BotMoveTask extends Task<RegularGame> {
 
         while(businessLogic.currentPlayerIsBot() && businessLogic.getIsActive()) {
             updateMessage("Calculating Bot's Turn...");
+
             Turn turn = businessLogic.getBotTurn();
 
             Thread.sleep(SLEEP_TIME);
             updateMessage("Showing The Turn...");
+
             if (turn != null) {
                 if(turn.getTurnType() == Turn.removeDisk){
                     businessLogic.drawPopoutTurn(turn);
@@ -26,6 +28,7 @@ public class BotMoveTask extends Task<RegularGame> {
 
             Thread.sleep(SLEEP_TIME);
             updateMessage("Checking For Winners Or A Draw...");
+
             if (businessLogic.isWinnerFound()) {
                 Platform.runLater(()->businessLogic.declareWinnerFound());
                 businessLogic.deactivateGame();
@@ -36,6 +39,7 @@ public class BotMoveTask extends Task<RegularGame> {
                 Platform.runLater(()->businessLogic.deactivate());
             } else {
                 Platform.runLater(()->businessLogic.changeCurrPlayer());
+                Platform.runLater(() -> businessLogic.changeCurrControllerPlayer(businessLogic.getCurrentPlayerName()));
             }
         }
 
@@ -47,7 +51,6 @@ public class BotMoveTask extends Task<RegularGame> {
         updateMessage("");
 
         Thread.sleep(SLEEP_TIME);
-
 
         return null;
     }

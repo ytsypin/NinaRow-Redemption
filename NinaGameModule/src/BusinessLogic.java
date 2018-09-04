@@ -144,7 +144,6 @@ public class BusinessLogic {
         return gameEngine.isCurrentParticipantBot();
     }
 
-
     public void makeBotMove() {
 
         BotMoveTask botMove = new BotMoveTask(this);
@@ -197,6 +196,10 @@ public class BusinessLogic {
                 controller.deactivate();
             }
         }
+
+        if(currentPlayerIsBot()){
+            makeBotMove();
+        }
     }
 
     public boolean getIsActive() {
@@ -237,5 +240,9 @@ public class BusinessLogic {
 
     public void changeCurrPlayer(){
         controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
+    }
+
+    public void changeCurrControllerPlayer(String currentPlayerName) {
+        controller.changeCurrPlayer(currentPlayerName);
     }
 }

@@ -57,7 +57,6 @@ public class RightSideController {
 
     private Map<Integer, Label> playerLabels = new HashMap();
 
-
     private MainController mainController;
     private Stage primaryStage;
     private BusinessLogic businessLogic;
@@ -74,7 +73,6 @@ public class RightSideController {
     public void init(MainController mainController, BusinessLogic businessLogic) {
         this.mainController = mainController;
         this.businessLogic = businessLogic;
-
     }
 
     @FXML
@@ -84,7 +82,6 @@ public class RightSideController {
 
     @FXML
     void onStartPressed(ActionEvent event) {
-        isGameActive.setValue(true);
         businessLogic.clearBoard();
         mainController.clearBoard();
 
@@ -92,7 +89,9 @@ public class RightSideController {
         businessLogic.setGameIsActive();
         businessLogic.resetTurns();
         setPlayerInfoTable(businessLogic.getPlayerData());
+        populateLabels(businessLogic.getPlayerData().size());
 
+        currentPlayerLabel.setText(businessLogic.getCurrentPlayerName());
 
         if(businessLogic.currentPlayerIsBot()){
             businessLogic.makeBotMove();
@@ -102,7 +101,6 @@ public class RightSideController {
     @FXML
     void onLeavePressed(ActionEvent event) {
         businessLogic.leaveGame();
-
     }
 
     public void initialize(){
@@ -142,10 +140,13 @@ public class RightSideController {
         });
 
         skinSelector.getSelectionModel().select("Default");
+
+        currentPlayerLabel.getStyleClass().add("currentPlayer");
     }
 
     public void setPlayerInfoTable(ObservableList<Participant> playerData){
         playerTable.setItems(playerData);
+        populateLabels(playerData.size());
     }
 
     public void setPrimaryStage(Stage primaryStage){
@@ -206,6 +207,13 @@ public class RightSideController {
     }
 
     public void populateLabels(int size) {
+        playerLabels.put(0, player1);
+        playerLabels.put(1, player2);
+        playerLabels.put(2, player3);
+        playerLabels.put(3, player4);
+        playerLabels.put(4, player5);
+        playerLabels.put(5, player6);
+
         for(int i = 0; i < 6; i++){
             playerLabels.get(i).setText("");
             playerLabels.get(i).getStyleClass().clear();
@@ -231,9 +239,15 @@ public class RightSideController {
     }
 
     public void removeCurrPlayerColorLabel(int playerSymbol) {
-        Label playerToRemove = playerLabels.get(playerSymbol);
-        playerLabels.remove(playerSymbol);
+        int numOfPlayers = businessLogic.getPlayerData().size();
 
-        playerLabelArea.getChildren().remove(playerToRemove);
+        for(int i = playerSymbol; i < numOfPlayers; i++ ){
+            String oldStyleClass = "player"+(i+1);
+            String newStyleClass = "player"+(i+2);
+            playerLabels.get(i).getStyleClass().remove(oldStyleClass);
+            playerLabels.get(i).getStyleClass().add(newStyleClass);
+        }
+
+        playerLabels.get(numOfPlayers-1).getStyleClass().clear();
     }
 }
