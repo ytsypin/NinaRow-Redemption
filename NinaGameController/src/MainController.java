@@ -30,6 +30,7 @@ public class MainController {
     @FXML private Label goalLabel;
     @FXML private Label informationLabel;
     @FXML private HBox topHBox;
+    @FXML private Label botTurnProgressLabel;
 
     private BusinessLogic businessLogic;
     private Stage primaryStage;
@@ -256,5 +257,9 @@ public class MainController {
 
     public void removeCurrPlayerColorLabel(int playerSymbol) {
         rightSideController.removeCurrPlayerColorLabel(playerSymbol);
+    }
+
+    public void bindBotMoveToUI(BotMoveTask botMove) {
+        botTurnProgressLabel.textProperty().bind(botMove.messageProperty());
     }
 }

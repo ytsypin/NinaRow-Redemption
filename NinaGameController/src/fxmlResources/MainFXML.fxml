@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.Group?>
 <ScrollPane fx:id="entireWindow" fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
-   <AnchorPane maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="whole" >
+   <AnchorPane maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="whole">
       <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Group StackPane.alignment="CENTER">
-               <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" >
+               <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                    <right>
                        <fx:include fx:id="rightSide" source="RightSide.fxml" />
                    </right>
@@ -23,42 +24,51 @@
                        <AnchorPane fx:id="boardAnchorPane" minHeight="400" minWidth="400" BorderPane.alignment="CENTER" />
                    </center>
                   <top>
-                     <HBox fx:id="topHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <VBox BorderPane.alignment="CENTER">
                         <children>
-                           <Label fx:id="gameTypeHeader" text="Game Type:">
-                              <HBox.margin>
-                                 <Insets bottom="5.0" left="100.0" top="5.0" />
-                              </HBox.margin>
-                              <font>
-                                 <Font size="24.0" />
-                              </font>
-                           </Label>
-                           <Label fx:id="gameTypeLabel">
-                              <HBox.margin>
-                                 <Insets bottom="5.0" left="5.0" right="100.0" top="5.0" />
-                              </HBox.margin>
-                              <font>
-                                 <Font size="24.0" />
-                              </font>
-                           </Label>
-                           <Label fx:id="goalHeader" text="Current Goal:">
-                              <HBox.margin>
-                                 <Insets left="100.0" />
-                              </HBox.margin>
-                              <font>
-                                 <Font size="24.0" />
-                              </font>
-                           </Label>
-                           <Label fx:id="goalLabel">
-                              <HBox.margin>
-                                 <Insets left="5.0" right="100.0" />
-                              </HBox.margin>
-                              <font>
-                                 <Font size="24.0" />
-                              </font>
-                           </Label>
+                           <HBox fx:id="topHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                              <children>
+                                 <Label fx:id="gameTypeHeader" text="Game Type:">
+                                    <HBox.margin>
+                                       <Insets bottom="5.0" left="100.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="gameTypeLabel">
+                                    <HBox.margin>
+                                       <Insets bottom="5.0" left="5.0" right="100.0" top="5.0" />
+                                    </HBox.margin>
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="goalHeader" text="Current Goal:">
+                                    <HBox.margin>
+                                       <Insets left="100.0" />
+                                    </HBox.margin>
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font>
+                                 </Label>
+                                 <Label fx:id="goalLabel">
+                                    <HBox.margin>
+                                       <Insets left="5.0" right="100.0" />
+                                    </HBox.margin>
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </HBox>
+                           <HBox alignment="CENTER">
+                              <children>
+                                 <Label fx:id="botTurnProgressLabel" contentDisplay="CENTER" />
+                              </children>
+                           </HBox>
                         </children>
-                     </HBox>
+                     </VBox>
                   </top>
                   <bottom>
                      <Label fx:id="informationLabel" contentDisplay="CENTER" BorderPane.alignment="CENTER">

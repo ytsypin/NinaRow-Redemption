@@ -79,9 +79,7 @@ public class BusinessLogic {
 
 
         if(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
-            BotMoveTask botMove = new BotMoveTask(this);
-
-            new Thread(botMove).start();
+            makeBotMove();
         }
     }
 
@@ -120,13 +118,12 @@ public class BusinessLogic {
         }
 
         if(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
-            BotMoveTask botMove = new BotMoveTask(this);
-            new Thread(botMove).start();
+            makeBotMove();
         }
 
     }
 
-    private void drawPopoutTurn(Turn turn) {
+    protected void drawPopoutTurn(Turn turn) {
         controller.popOutTile(turn.getRow(), turn.getCol());
         controller.cascadeTiles(turn.getRow(), turn.getCol());
     }
@@ -147,30 +144,13 @@ public class BusinessLogic {
         return gameEngine.isCurrentParticipantBot();
     }
 
+
     public void makeBotMove() {
-        while(currentPlayerIsBot() && gameEngine.getIsActive()) {
-            Turn turn = gameEngine.getBotTurn();
 
-            if (turn != null) {
-                if(turn.getTurnType() == Turn.removeDisk){
-                    drawPopoutTurn(turn);
-                } else {
-                    Platform.runLater(() -> {controller.drawTurn(turn.getCol(), turn.getRow(), turn.getParticipantSymbol());});
-                }
-            }
+        BotMoveTask botMove = new BotMoveTask(this);
 
-            if (gameEngine.isWinnerFound()) {
-                Platform.runLater(()->controller.declareWinnerFound());
-                gameEngine.deactivateGame();
-                Platform.runLater(()->controller.deactivate());
-            } else if (gameEngine.drawReached()) {
-                Platform.runLater(()->controller.declareDraw());
-                gameEngine.deactivateGame();
-                Platform.runLater(()->controller.deactivate());
-            } else {
-                Platform.runLater(()->controller.changeCurrPlayer(gameEngine.getCurrentPlayerName()));
-            }
-        }
+        controller.bindBotMoveToUI(botMove);
+        new Thread(botMove).start();
     }
 
     public void setGameIsActive() {
@@ -197,7 +177,10 @@ public class BusinessLogic {
         }
         controller.removeCurrPlayerColorLabel(gameEngine.getCurrentPlayerSymbol()-1);
         gameEngine.removeCurrentPlayer();
-        controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
+
+        if(gameEngine.getParticipants().size() > 1) {
+            controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
+        }
 
         if(gameEngine.getParticipants().size() == 1){
             controller.displayMesage("There is only one player left...You won I guess?", "One Player Left");
@@ -214,5 +197,45 @@ public class BusinessLogic {
                 controller.deactivate();
             }
         }
+    }
+
+    public boolean getIsActive() {
+        return gameEngine.getIsActive();
+    }
+
+    public Turn getBotTurn() {
+        return gameEngine.getBotTurn();
+    }
+
+    public void drawTurn(int col, int row, int participantSymbol) {
+        controller.drawTurn(col, row, participantSymbol);
+    }
+
+    public boolean isWinnerFound() {
+        return gameEngine.isWinnerFound();
+    }
+
+    public void declareWinnerFound() {
+        controller.declareWinnerFound();
+    }
+
+    public void deactivateGame() {
+        gameEngine.deactivateGame();
+    }
+
+    public void deactivate() {
+        controller.deactivate();
+    }
+
+    public boolean drawReached() {
+        return gameEngine.drawReached();
+    }
+
+    public void declareDraw() {
+        controller.declareDraw();
+    }
+
+    public void changeCurrPlayer(){
+        controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
     }
 }

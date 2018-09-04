@@ -461,6 +461,9 @@ public class RegularGame{
 
     public void removeCurrentPlayer() {
         allParticipants.remove(currentParticipant);
-        changeCurrentParticipant();
+
+        if(!allParticipants.isEmpty()) {
+            changeCurrentParticipant();
+        }
     }
 }

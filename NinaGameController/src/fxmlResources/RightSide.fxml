@@ -160,8 +160,14 @@
    <bottom>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Separator prefWidth="200.0" />
-            <Button fx:id="leaveGameButton" mnemonicParsing="false" onAction="#onLeavePressed" text="Leave Game" />
+            <Separator prefWidth="200.0">
+               <padding>
+                  <Insets top="4.0" />
+               </padding></Separator>
+            <Button fx:id="leaveGameButton" mnemonicParsing="false" onAction="#onLeavePressed" text="Leave Game">
+               <VBox.margin>
+                  <Insets top="4.0" />
+               </VBox.margin></Button>
          </children>
       </VBox>
    </bottom>
