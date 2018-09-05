@@ -2,7 +2,6 @@ import Exceptions.CantPopoutException;
 import Exceptions.ColumnFullException;
 import gameBoard.Participant;
 import gameBoard.Turn;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import regularGame.RegularGame;
@@ -60,14 +59,7 @@ public class BusinessLogic {
                     gameEngine.deactivateGame();
                     controller.deactivate();
                 } else{
-                    if (gameEngine.drawReached()){
-                        controller.declareDraw();
-                        gameEngine.deactivateGame();
-                        controller.deactivate();
-                    } else {
-                        gameEngine.changeCurrentParticipant();
-                        controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
-                    }
+                    checkPostTurnSituation();
                 }
             }
 
@@ -80,6 +72,17 @@ public class BusinessLogic {
 
         if(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
             makeBotMove();
+        }
+    }
+
+    private void checkPostTurnSituation() {
+        if (gameEngine.drawReached()){
+            controller.declareDraw();
+            gameEngine.deactivateGame();
+            controller.deactivate();
+        } else {
+            gameEngine.changeCurrentParticipant();
+            controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
         }
     }
 
@@ -104,17 +107,8 @@ public class BusinessLogic {
                 gameEngine.deactivateGame();
                 controller.deactivate();
             } else{
-
-                if (gameEngine.drawReached()){
-                    controller.declareDraw();
-                    gameEngine.deactivateGame();
-                    controller.deactivate();
-                } else {
-                    gameEngine.changeCurrentParticipant();
-                    controller.changeCurrPlayer(gameEngine.getCurrentPlayerName());
-                }
+                checkPostTurnSituation();
             }
-
         }
 
         if(gameEngine.isCurrentParticipantBot() && gameEngine.getIsActive()){
