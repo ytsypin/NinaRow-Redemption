@@ -22,13 +22,12 @@ public class RegularGame{
     protected NinaBoard gameBoard;
     protected boolean winnerFound = false;
     protected boolean isActive = false;
-    protected List<Turn> turnHistory;
     protected List<Participant> allParticipants;
     protected List<Participant> originalParticipants;
     protected Participant currentParticipant = null;
     private int currentParticipantNumber = 0;
     protected static int noMove = -1;
-    protected List<Integer> winners;
+    protected List<Participant> winners;
 
 
     public boolean isCurrentParticipantBot() {
@@ -80,11 +79,12 @@ public class RegularGame{
         if(!gameBoard.isColFull(col)){
             int row = getFirstOpenRow(col);
             currTurn = new Turn(row, col, currentParticipant.getParticipantSymbol(), Turn.addDisk);
-            int currParticipantSymbol = currentParticipant.getParticipantSymbol();
-            gameBoard.applyTurn(currTurn, currParticipantSymbol);
-            turnHistory.add(currTurn);
 
-            currentParticipant.addTurnPlayed();
+            if(currTurn != null) {
+                int currParticipantSymbol = currentParticipant.getParticipantSymbol();
+                gameBoard.applyTurn(currTurn, currParticipantSymbol);
+                currentParticipant.addTurnPlayed();
+            }
         } else {
             throw new ColumnFullException();
         }
@@ -101,6 +101,16 @@ public class RegularGame{
         currentParticipant = allParticipants.get(currentParticipantNumber);
     }
 
+    protected void addWinner(int currentTile) {
+        for(Participant participant : allParticipants){
+            if(currentTile == participant.getParticipantSymbol()){
+                if(!winners.contains(participant)) {
+                    winners.add(participant);
+                }
+            }
+        }
+    }
+
     protected void checkForWinner(int row, int col, int currParticipantSymbol){
         checkForWinningRow(row, col, currParticipantSymbol);
         checkForWinningCol(row, col, currParticipantSymbol);
@@ -108,9 +118,7 @@ public class RegularGame{
         checkForWinningAcrossRight(row,col,currParticipantSymbol);
 
         if(winnerFound){
-            if(!winners.contains(currParticipantSymbol)){
-                winners.add(currParticipantSymbol);
-            }
+            addWinner(currParticipantSymbol);
         }
     }
 
@@ -284,38 +292,12 @@ public class RegularGame{
         }
     }
 
-    public int[][] getBoard() {
-        return gameBoard.getBoardTiles();
-    }
-
     public int getRows() {
         return gameBoard.getRows();
     }
 
     public int getCols() {
         return gameBoard.getCols();
-    }
-
-    public boolean isTurnHistoryEmpty() {
-        return turnHistory.isEmpty();
-    }
-
-    public List<Integer> getTurnHistory() {
-        LinkedList<Integer> resultingTurnHistory = new LinkedList<>();
-
-        for (Turn turn : turnHistory) {
-            resultingTurnHistory.addLast(turn.getCol());
-        }
-
-        return resultingTurnHistory;
-    }
-
-    public void takeBotTurn() throws ColumnFullException {
-        int column = getPossibleColumn();
-
-        if (column != noMove) {
-            implementTurn(column);
-        }
     }
 
     public boolean equals(Object o) {
@@ -326,17 +308,12 @@ public class RegularGame{
                 winnerFound == that.winnerFound &&
                 isActive == that.isActive &&
                 Objects.equals(gameBoard, that.gameBoard) &&
-                Objects.equals(turnHistory, that.turnHistory) &&
                 Objects.equals(allParticipants, that.allParticipants) &&
                 Objects.equals(currentParticipant, that.currentParticipant);
     }
 
     public int hashCode() {
-        return Objects.hash(N, gameBoard, winnerFound, isActive, turnHistory, allParticipants, currentParticipant);
-    }
-
-    protected int getNumOfParticipants(){
-        return allParticipants.size();
+        return Objects.hash(N, gameBoard, winnerFound, isActive, allParticipants, currentParticipant);
     }
 
     public int getGameType() {
@@ -348,7 +325,6 @@ public class RegularGame{
         this.allParticipants = FXCollections.observableArrayList(allParticipants);
         this.gameBoard = new NinaBoard(rows, cols);
         currentParticipant = allParticipants.get(0);
-        turnHistory = new LinkedList<>();
         winners = new LinkedList<>();
         originalParticipants = FXCollections.observableArrayList(allParticipants);
     }
@@ -374,9 +350,6 @@ public class RegularGame{
         gameBoard.clear();
         if(winners != null) {
             winners.clear();
-        }
-        if(turnHistory != null) {
-            turnHistory.clear();
         }
         for(Participant participant : allParticipants){
             participant.clearTurns();
@@ -445,8 +418,12 @@ public class RegularGame{
             checkForWinner(row, col, currentTile);
 
             if(winnerFound){
-                if(!winners.contains(currentTile)) {
-                    winners.add(currentTile);
+                for(Participant participant : allParticipants){
+                    if(currentTile == participant.getParticipantSymbol()){
+                        if(!winners.contains(participant)) {
+                            winners.add(participant);
+                        }
+                    }
                 }
                 winnersFound = true;
                 winnerFound = false;
@@ -466,5 +443,9 @@ public class RegularGame{
         if(!allParticipants.isEmpty()) {
             currentParticipant = allParticipants.get(currentParticipantNumber);
         }
+    }
+
+    public ObservableList<Participant> getWinners(){
+        return FXCollections.observableArrayList(winners);
     }
 }

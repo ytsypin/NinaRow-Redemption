@@ -29,9 +29,7 @@ public class CircularGame extends RegularGame {
         checkForWinningSpanningVertically(row, col, currParticipantSymbol);
 
         if(winnerFound){
-            if(!winners.contains(currParticipantSymbol)){
-                winners.add(currParticipantSymbol);
-            }
+            addWinner(currParticipantSymbol);
         }
     }
 

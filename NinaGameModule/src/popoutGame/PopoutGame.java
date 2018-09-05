@@ -49,9 +49,7 @@ public class PopoutGame extends RegularGame {
                 checkForWinner(currRow, col, currentTile);
 
                 if (winnerFound) {
-                    if(!winners.contains(gameBoard.getTileSymbol(currRow, col))) {
-                        winners.add(gameBoard.getTileSymbol(currRow, col));
-                    }
+                    addWinner(currentTile);
                     winnersFound = true;
                     winnerFound = false;
                 }
@@ -82,7 +80,9 @@ public class PopoutGame extends RegularGame {
             turnMade = null;
         }
 
-        currentParticipant.addTurnPlayed();
+        if(turnMade != null) {
+            currentParticipant.addTurnPlayed();
+        }
 
         return turnMade;
     }

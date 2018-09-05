@@ -96,10 +96,10 @@ public class BusinessLogic {
             drawPopoutTurn(turn);
 
             if (gameEngine.isWinnerFound()) {
-                if(gameEngine.getParticipants().size() == 1) {
+                if(gameEngine.getWinners().size() == 1) {
                     controller.declareWinnerFound();
                 } else {
-                    controller.declareWinners(gameEngine.getParticipants());
+                    controller.declareWinners(gameEngine.getWinners());
                 }
                 gameEngine.deactivateGame();
                 controller.deactivate();
