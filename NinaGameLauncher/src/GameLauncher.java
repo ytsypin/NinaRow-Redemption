@@ -27,6 +27,8 @@ public class GameLauncher extends Application {
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
+
+        primaryStage.setTitle("NinaRow - Redemption");
         controller.setPrimaryStage(primaryStage);
         primaryStage.show();
 
