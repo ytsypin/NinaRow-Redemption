@@ -42,6 +42,8 @@ public class XMLExtractionTask extends Task<RegularGame> {
 
             List<Player> allPlayers = gameDescriptor.getPlayers().getPlayer();
 
+            updateProgress(0,6);
+
             updateMessage("Checking rows");
             Thread.sleep(SLEEP_TIME);
             if(rows < 5 || 50 < rows){
@@ -54,11 +56,15 @@ public class XMLExtractionTask extends Task<RegularGame> {
                 throw new InvalidNumberOfColsException(cols);
             }
 
+            updateProgress(1,6);
+
             updateMessage("Checking target value");
             Thread.sleep(SLEEP_TIME);
             if(N >= Math.min(rows, cols) || N < 2){
                 throw new InvalidTargetException(N);
             }
+
+            updateProgress(2,6);
 
             updateMessage("Checking number of players");
             Thread.sleep(SLEEP_TIME);
@@ -66,8 +72,12 @@ public class XMLExtractionTask extends Task<RegularGame> {
                 throw new InvalidNumberOfPlayersException(allPlayers.size());
             }
 
+            updateProgress(3,6);
+
             ObservableList<Participant> playerList = FXCollections.observableArrayList();
             List<Short> idList = new ArrayList<>();
+
+            updateProgress(4,6);
 
             updateMessage("Checking ID number uniqueness");
             Thread.sleep(SLEEP_TIME);
@@ -93,6 +103,8 @@ public class XMLExtractionTask extends Task<RegularGame> {
                 }
             }
 
+            updateProgress(5,6);
+
             updateMessage("Checking game type");
             Thread.sleep(SLEEP_TIME);
             if(gameDescriptor.getGame().getVariant().equals("Circular")){
@@ -104,6 +116,8 @@ public class XMLExtractionTask extends Task<RegularGame> {
             } else {
                 throw new GameTypeException();
             }
+
+            updateProgress(6,6);
 
             updateMessage("Done! All good!");
 
